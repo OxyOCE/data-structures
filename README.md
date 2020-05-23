@@ -28,6 +28,7 @@ To keep things simple, these data structures currently only support `int` for th
 
 **Planned Features**
 * Insert
+* Pop
 * Delete
 * Reverse
 * Sort
