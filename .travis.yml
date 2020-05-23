@@ -5,10 +5,10 @@ jobs:
           os: linux
           script:
               - make
-              - ./test
+              - ./test > /dev/null 2>&1
         - language: c
           compiler: gcc
           os: osx
           script:
               - make
-              - ./test
+              - ./test > /dev/null 2>&1
