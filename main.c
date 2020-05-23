@@ -20,7 +20,7 @@ int main(int argc, char **argv)
     array_list al = array_list_new();
     default_al_capacity = al->capacity;
 
-    assert(array_list_size(al) == 0);
+    assert(al->size == 0);
     assert((errno = array_list_pop(al, &elem)) == -1);
 
     for (i = 0; i < default_al_capacity; i++) {
@@ -28,13 +28,13 @@ int main(int argc, char **argv)
     }
 
     assert(al->capacity == default_al_capacity);
-    assert(array_list_size(al) == default_al_capacity);
+    assert(al->size == default_al_capacity);
 
     array_list_append(al, default_al_capacity);
     array_list_append(al, default_al_capacity + 1);
 
     assert(al->capacity == default_al_capacity * 2);
-    assert(array_list_size(al) == default_al_capacity + 2);
+    assert(al->size == default_al_capacity + 2);
 
     assert((errno = array_list_get(al, &elem, 0)) == 0 && elem == 0);
     assert((errno = array_list_get(al, &elem, 1)) == 0 && elem == 1);
@@ -44,7 +44,7 @@ int main(int argc, char **argv)
     assert((errno = array_list_get(al, &elem, default_al_capacity + 1)) == 0 && elem == default_al_capacity + 1);
 
     assert((errno = array_list_pop(al, &elem)) == 0 && elem == default_al_capacity + 1);
-    assert(array_list_size(al) == default_al_capacity + 1);
+    assert(al->size == default_al_capacity + 1);
 
 
     array_list_free(al);

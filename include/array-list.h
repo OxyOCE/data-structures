@@ -9,10 +9,11 @@ typedef struct array_list
 } *array_list;
 
 extern array_list array_list_new();
-extern long       array_list_size(array_list al);
 extern void       array_list_append(array_list al, int elem);
+extern void       array_list_insert(array_list al, int elem, long idx);
 extern int        array_list_get(array_list al, int *dest, long idx);
 extern int        array_list_pop(array_list al, int *dest);
+extern int        array_list_delete(array_list al, int *dest, long idx);
 extern void       array_list_free(array_list al);
 
 #endif

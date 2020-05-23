@@ -25,10 +25,10 @@ To keep things simple, these data structures currently only support `int` for th
 **Current Features**
 * Append
 * Get
+* Pop
 
 **Planned Features**
 * Insert
-* Pop
 * Delete
 * Reverse
 * Sort
