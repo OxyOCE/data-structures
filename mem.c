@@ -4,24 +4,24 @@
 
 void *emalloc(size_t s)
 {
-    void *ptr = malloc(s);
+    void *ret = malloc(s);
 
-    if (NULL == ptr) {
+    if (NULL == ret) {
         fprintf(stderr, "Fatal: malloc failed\n");
         exit(EXIT_FAILURE);
     }
 
-    return ptr;
+    return ret;
 }
 
 void *erealloc(void *ptr, size_t s)
 {
-    void *new_ptr = realloc(ptr, s);
+    void *ret = realloc(ptr, s);
 
-    if (NULL == new_ptr) {
+    if (NULL == ret) {
         fprintf(stderr, "Fatal: realloc failed\n");
         exit(EXIT_FAILURE);
     }
 
-    return new_ptr;
+    return ret;
 }
