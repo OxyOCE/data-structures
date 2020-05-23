@@ -1,23 +1,20 @@
 #include <stdlib.h>
+#include <stdio.h>
 #include "include/array-list.h"
 #include "include/mem.h"
 
 static void expand(array_list al) {
-    if (al->size >= al->capacity) {
+    if (al->size++ >= al->capacity) {
         al->capacity *= 2;
         al->array = erealloc(al->array, al->capacity * sizeof al->array[0]);
     }
-
-    al->size++;
 }
 
 static void contract(array_list al) {
-    if (al->size <= al->capacity / 4) {
+    if (--al->size <= al->capacity / 4 && al->capacity / 2 >= (long)(4096 / sizeof(al->array[0]))) {
         al->capacity /= 2;
         al->array = erealloc(al->array, al->capacity * sizeof al->array[0]);
     }
-
-    al->size--;
 }
 
 array_list array_list_new()
@@ -37,9 +34,13 @@ void array_list_append(array_list al, int elem)
     al->array[al->size - 1] = elem;
 }
 
-void array_list_insert(array_list al, int elem, long idx)
+int array_list_insert(array_list al, int elem, long idx)
 {
     int i;
+
+    if (idx >= al->size || idx < 0) {
+        return -1;
+    }
 
     expand(al);
 
@@ -48,6 +49,8 @@ void array_list_insert(array_list al, int elem, long idx)
     }
 
     al->array[idx] = elem;
+
+    return 0;
 
 }
 
@@ -77,7 +80,7 @@ int array_list_delete(array_list al, int *dest, long idx)
 {
     int i;
 
-    if (al->size <= 0) {
+    if (idx >= al->size || idx < 0 || al->size <= 0) {
         return -1;
     }
 
@@ -90,6 +93,15 @@ int array_list_delete(array_list al, int *dest, long idx)
     contract(al);
 
     return 0;
+}
+
+void array_list_print(array_list al)
+{
+    int i;
+
+    for (i = 0; i < al->size; i++) {
+        printf("%d\n", al->array[i]);
+    }
 }
 
 void array_list_free(array_list al)

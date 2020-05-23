@@ -2,7 +2,9 @@ jobs:
     include:
         - language: c
           compiler: gcc
-          os: linux
+          os:
+              - linux
+              - osx
           script:
               - make
               - ./test

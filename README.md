@@ -11,7 +11,7 @@ To keep things simple, these data structures currently only support `int` for th
 `mem.c` provides basic error handling for the `malloc` and `realloc` functions and helps prevents code repetition.
 
 ### Array List
-`array-list.c` is a dynamic array that upscales its capacity according to demand.
+`array-list.c` is a dynamic array that scales its capacity according to demand.
 
 **Pros**
 * _O(1)_ append and access
@@ -24,12 +24,12 @@ To keep things simple, these data structures currently only support `int` for th
 
 **Current Features**
 * Append
+* Insert
 * Get
 * Pop
+* Delete
+* Automatic downscaling
 
 **Planned Features**
-* Insert
-* Delete
 * Reverse
 * Sort
-* Automatic downscaling
