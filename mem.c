@@ -1,3 +1,5 @@
+#include <stdlib.h>
+#include <stdio.h>
 #include "include/mem.h"
 
 void *emalloc(size_t s)
