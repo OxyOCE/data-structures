@@ -13,6 +13,11 @@ array_list array_list_new()
     return ret;
 }
 
+long array_list_size(array_list al)
+{
+    return al->size;
+}
+
 void array_list_append(array_list al, int elem)
 {
     if (al->size >= al->capacity) {
@@ -30,6 +35,17 @@ int array_list_get(array_list al, int *dest, long idx)
     }
 
     *dest = al->array[idx];
+    return 0;
+}
+
+int array_list_pop(array_list al, int *dest)
+{
+    if (al->size <= 0) {
+        return -1;
+    }
+
+    al->size--;
+    *dest = al->array[al->size];
     return 0;
 }
 

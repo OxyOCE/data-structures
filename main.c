@@ -9,7 +9,7 @@ int main(int argc, char **argv)
     (void)argv;
 
     long default_al_capacity;
-    int i;
+    int i, errno, elem;
 
     // Unit tests for mem.c
     void *ptr = emalloc(1);
@@ -18,30 +18,34 @@ int main(int argc, char **argv)
 
     // Unit tests for array-list.c
     array_list al = array_list_new();
-    default_al_capacity = 4096 / sizeof(al->array[0]);
+    default_al_capacity = al->capacity;
 
-    assert(al->capacity == default_al_capacity);
-    assert(al->size == 0);
+    assert(array_list_size(al) == 0);
+    assert((errno = array_list_pop(al, &elem)) == -1);
 
     for (i = 0; i < default_al_capacity; i++) {
         array_list_append(al, i);
     }
 
     assert(al->capacity == default_al_capacity);
-    assert(al->size == default_al_capacity);
+    assert(array_list_size(al) == default_al_capacity);
 
     array_list_append(al, default_al_capacity);
     array_list_append(al, default_al_capacity + 1);
 
     assert(al->capacity == default_al_capacity * 2);
-    assert(al->size == default_al_capacity + 2);
+    assert(array_list_size(al) == default_al_capacity + 2);
 
-    assert(al->array[0] == 0);
-    assert(al->array[1] == 1);
-    assert(al->array[2] == 2);
-    assert(al->array[default_al_capacity - 1] == default_al_capacity - 1);
-    assert(al->array[default_al_capacity] == default_al_capacity);
-    assert(al->array[default_al_capacity + 1] == default_al_capacity + 1);
+    assert((errno = array_list_get(al, &elem, 0)) == 0 && elem == 0);
+    assert((errno = array_list_get(al, &elem, 1)) == 0 && elem == 1);
+    assert((errno = array_list_get(al, &elem, 2)) == 0 && elem == 2);
+    assert((errno = array_list_get(al, &elem, default_al_capacity - 1)) == 0 && elem == default_al_capacity - 1);
+    assert((errno = array_list_get(al, &elem, default_al_capacity)) == 0 && elem == default_al_capacity);
+    assert((errno = array_list_get(al, &elem, default_al_capacity + 1)) == 0 && elem == default_al_capacity + 1);
+
+    assert((errno = array_list_pop(al, &elem)) == 0 && elem == default_al_capacity + 1);
+    assert(array_list_size(al) == default_al_capacity + 1);
+
 
     array_list_free(al);
 
