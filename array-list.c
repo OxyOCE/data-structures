@@ -6,7 +6,7 @@ array_list array_list_new()
 {
     array_list ret = emalloc(sizeof *ret);
 
-    ret->capacity = 4096 / sizeof(int);
+    ret->capacity = 4096 / sizeof(ret->array[0]);
     ret->size = 0;
     ret->array = emalloc(ret->capacity * sizeof ret->array[0]);
 
