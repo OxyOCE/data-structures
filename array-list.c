@@ -17,6 +17,23 @@ static void contract(array_list al) {
     }
 }
 
+static int check_bounds(array_list al, long idx, int mode)
+{
+    if (mode == DEFAULT) {
+        if (idx >= al->size || idx < 0 || al->size <= 0) {
+            return INDEX_OUT_OF_BOUNDS;
+        }
+    }
+
+    if (mode == INSERT) {
+        if (idx >= al->size || idx < 0) {
+            return INDEX_OUT_OF_BOUNDS;
+        }
+    }
+
+    return SUCCESS;
+}
+
 array_list array_list_new()
 {
     array_list ret = emalloc(sizeof *ret);
@@ -38,8 +55,8 @@ int array_list_insert(array_list al, int elem, long idx)
 {
     int i;
 
-    if (idx >= al->size || idx < 0) {
-        return -1;
+    if (check_bounds(al, idx, INSERT) == INDEX_OUT_OF_BOUNDS) {
+        return INDEX_OUT_OF_BOUNDS;
     }
 
     expand(al);
@@ -50,18 +67,18 @@ int array_list_insert(array_list al, int elem, long idx)
 
     al->array[idx] = elem;
 
-    return 0;
+    return SUCCESS;
 
 }
 
 int array_list_get(array_list al, int *dest, long idx)
 {
-    if (idx >= al->size || idx < 0) {
-        return -1;
+    if (check_bounds(al, idx, DEFAULT) == INDEX_OUT_OF_BOUNDS) {
+        return INDEX_OUT_OF_BOUNDS;
     }
 
     *dest = al->array[idx];
-    return 0;
+    return SUCCESS;
 }
 
 int array_list_linear_search(array_list al, int elem, long start)
@@ -80,25 +97,25 @@ int array_list_linear_search(array_list al, int elem, long start)
         }
     }
 
-    return -1;
+    return NOT_FOUND;
 }
 
 int array_list_set(array_list al, long idx, int elem)
 {
-    if (idx >= al->size || idx < 0 || al->size <= 0) {
-        return -1;
+    if (check_bounds(al, idx, DEFAULT) == INDEX_OUT_OF_BOUNDS) {
+        return INDEX_OUT_OF_BOUNDS;
     }
 
     al->array[idx] = elem;
-    return 0;
+    return SUCCESS;
 }
 
 int array_list_delete(array_list al, int *dest, long idx)
 {
     int i;
 
-    if (idx >= al->size || idx < 0 || al->size <= 0) {
-        return -1;
+    if (check_bounds(al, idx, DEFAULT) == INDEX_OUT_OF_BOUNDS) {
+        return INDEX_OUT_OF_BOUNDS;
     }
 
     *dest = al->array[idx];
@@ -109,7 +126,7 @@ int array_list_delete(array_list al, int *dest, long idx)
 
     contract(al);
 
-    return 0;
+    return SUCCESS;
 }
 
 void array_list_print(array_list al)

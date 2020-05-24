@@ -1,6 +1,12 @@
 #ifndef ARRAY_LIST_H_
 #define ARRAY_LIST_H_
 
+#define NOT_FOUND -1
+#define SUCCESS 0
+#define INDEX_OUT_OF_BOUNDS 1
+#define DEFAULT 2
+#define INSERT 3
+
 typedef struct array_list
 {
     long capacity;

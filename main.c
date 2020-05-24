@@ -23,7 +23,7 @@ int main(int argc, char **argv)
     default_al_capacity = al->capacity;
 
     // Can't delete from an empty list
-    assert((errno = array_list_delete(al, &elem, al->size)) == -1);
+    assert((errno = array_list_delete(al, &elem, al->size)) == INDEX_OUT_OF_BOUNDS);
 
     // Testing upscaling
     for (i = 0; i < default_al_capacity; i++) {
@@ -39,13 +39,13 @@ int main(int argc, char **argv)
     assert(al->size == default_al_capacity + 1);
 
     // Testing get
-    assert((errno = array_list_get(al, &elem, 0)) == 0 && elem == 0);
-    assert((errno = array_list_get(al, &elem, 1)) == 0 && elem == 1);
-    assert((errno = array_list_get(al, &elem, default_al_capacity - 1)) == 0 && elem == default_al_capacity - 1);
-    assert((errno = array_list_get(al, &elem, default_al_capacity)) == 0 && elem == default_al_capacity);
+    assert((errno = array_list_get(al, &elem, 0)) == SUCCESS && elem == 0);
+    assert((errno = array_list_get(al, &elem, 1)) == SUCCESS && elem == 1);
+    assert((errno = array_list_get(al, &elem, default_al_capacity - 1)) == SUCCESS && elem == default_al_capacity - 1);
+    assert((errno = array_list_get(al, &elem, default_al_capacity)) == SUCCESS && elem == default_al_capacity);
 
     // Testing size update
-    assert((errno = array_list_delete(al, &elem, al->size - 1)) == 0 && elem == default_al_capacity);
+    assert((errno = array_list_delete(al, &elem, al->size - 1)) == SUCCESS && elem == default_al_capacity);
     assert(al->size == default_al_capacity);
 
     array_list_free(al);
@@ -80,45 +80,45 @@ int main(int argc, char **argv)
     }
 
     // Can't access out of bounds
-    assert(array_list_insert(al, -1, -1) == -1);
-    assert(array_list_insert(al, 10, 10) == -1);
+    assert(array_list_insert(al, -1, -1) == INDEX_OUT_OF_BOUNDS);
+    assert(array_list_insert(al, 10, 10) == INDEX_OUT_OF_BOUNDS);
 
     // WARNING: the order of the next few operations is important for the unit test
-    assert(array_list_insert(al, 9, 9) == 0);
-    assert(array_list_insert(al, 4, 4) == 0);
-    assert(array_list_insert(al, 0, 0) == 0);
+    assert(array_list_insert(al, 9, 9) == SUCCESS);
+    assert(array_list_insert(al, 4, 4) == SUCCESS);
+    assert(array_list_insert(al, 0, 0) == SUCCESS);
 
     // Testing print
     array_list_print(al);
 
-    assert(array_list_delete(al, &elem, 12) == 0 && elem == 9);
-    assert(array_list_delete(al, &elem, 5) == 0 && elem == 4);
-    assert(array_list_delete(al, &elem, 0) == 0 && elem == 0);
+    assert(array_list_delete(al, &elem, 12) == SUCCESS && elem == 9);
+    assert(array_list_delete(al, &elem, 5) == SUCCESS && elem == 4);
+    assert(array_list_delete(al, &elem, 0) == SUCCESS && elem == 0);
 
     array_list_print(al);
 
     for (i = 0; i < 10; i++) {
-        assert(array_list_get(al, &elem, i) == 0 && elem == i);
+        assert(array_list_get(al, &elem, i) == SUCCESS && elem == i);
     }
 
     // Testing set
-    assert(array_list_set(al, 0, 999) == 0 && array_list_get(al, &elem, 0) == 0 && elem == 999);
-    assert(array_list_set(al, 9, 999) == 0 && array_list_get(al, &elem, 9) == 0 && elem == 999);
+    assert(array_list_set(al, 0, 999) == SUCCESS && array_list_get(al, &elem, 0) == SUCCESS && elem == 999);
+    assert(array_list_set(al, 9, 999) == SUCCESS && array_list_get(al, &elem, 9) == SUCCESS && elem == 999);
 
     // Bounds checking
-    assert(array_list_set(al, -1, 999) == -1);
-    assert(array_list_set(al, 10, 999) == -1);
+    assert(array_list_set(al, -1, 999) == INDEX_OUT_OF_BOUNDS);
+    assert(array_list_set(al, 10, 999) == INDEX_OUT_OF_BOUNDS);
 
     // Testing linear search
     assert((idx = array_list_linear_search(al, 999, 0)) == 0);
-    assert(array_list_get(al, &elem, idx) == 0 && elem == 999);
+    assert(array_list_get(al, &elem, idx) == SUCCESS && elem == 999);
 
     assert((idx = array_list_linear_search(al, 999, 1)) == 9);
-    assert(array_list_get(al, &elem, idx) == 0 && elem == 999);
+    assert(array_list_get(al, &elem, idx) == SUCCESS && elem == 999);
 
     // Bounds checking
     assert(array_list_linear_search(al, 999, -1) == 0);
-    assert(array_list_linear_search(al, 999, 10) == -1);
+    assert(array_list_linear_search(al, 999, 10) == NOT_FOUND);
 
     array_list_free(al);
 
