@@ -10,7 +10,7 @@ To keep things simple, these data structures currently only support `int` for th
 ### Memory Allocation
 `mem.c` provides basic error handling for the `malloc` and `realloc` functions and helps prevents code duplication.
 
-### Array List
+## Array List
 `array-list.c` is a dynamic array that scales its capacity according to demand.
 
 **Pros**
@@ -29,12 +29,21 @@ To keep things simple, these data structures currently only support `int` for th
 * **D** - Delete
 * **Misc** - Automatic downscaling
 
-### Sorting and Searching
+## Sorting and Searching
 `sort-and-search.c` contains implementations for various sorting and searching algorithms.
 
-**Sorting**
-* None yet
+### Sorting
+* **Quicksort**
+    * Fast with _O(n log n)_ average case
+    * Decent memory footprint _O(log n)_
+    * Easily parallelisable
+    * Bad _O(n^2)_ worst case
+    * Not a stable sort
 
-**Searching**
-* **Linear Search** - _O(n)_ - can operate on unsorted lists
-* **Binary Search** - _O(log n)_ - list must be sorted
+### Searching
+* **Linear Search**
+    * _O(n)_
+    * Can operate on unsorted lists
+* **Binary Search**
+    * _O(log n)_
+    * List must be sorted
