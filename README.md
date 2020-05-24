@@ -14,7 +14,8 @@ To keep things simple, these data structures currently only support `int` for th
 `array-list.c` is a dynamic array that scales its capacity according to demand.
 
 **Pros**
-* _O(1)_ append and access
+* _O(1)_ append, get, set and delete from end
+* _O(log n)_ binary search
 * Simple
 * Contiguous memory allocation
 
@@ -22,14 +23,9 @@ To keep things simple, these data structures currently only support `int` for th
 * _O(n)_ insert and delete
 * Uses more memory than is strictly necessary
 
-**Current Features**
-* Append
-* Insert
-* Get
-* Pop
-* Delete
-* Automatic downscaling
-
-**Planned Features**
-* Reverse
-* Sort
+**Features**
+* **C** - Append, Insert
+* **R** - Get, Binary Search, Linear Search
+* **U** - Set
+* **D** - Delete
+* **Misc** - Automatic downscaling

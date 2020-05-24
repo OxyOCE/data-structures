@@ -64,18 +64,6 @@ int array_list_get(array_list al, int *dest, long idx)
     return 0;
 }
 
-int array_list_pop(array_list al, int *dest)
-{
-    if (al->size <= 0) {
-        return -1;
-    }
-
-    *dest = al->array[al->size - 1];
-    contract(al);
-
-    return 0;
-}
-
 int array_list_delete(array_list al, int *dest, long idx)
 {
     int i;

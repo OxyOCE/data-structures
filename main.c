@@ -23,7 +23,7 @@ int main(int argc, char **argv)
     default_al_capacity = al->capacity;
 
     // Can't delete from an empty list
-    assert((errno = array_list_pop(al, &elem)) == -1);
+    assert((errno = array_list_delete(al, &elem, al->size)) == -1);
 
     // Testing upscaling
     for (i = 0; i < default_al_capacity; i++) {
@@ -44,8 +44,8 @@ int main(int argc, char **argv)
     assert((errno = array_list_get(al, &elem, default_al_capacity - 1)) == 0 && elem == default_al_capacity - 1);
     assert((errno = array_list_get(al, &elem, default_al_capacity)) == 0 && elem == default_al_capacity);
 
-    // Testing pop
-    assert((errno = array_list_pop(al, &elem)) == 0 && elem == default_al_capacity);
+    // Testing size update
+    assert((errno = array_list_delete(al, &elem, al->size - 1)) == 0 && elem == default_al_capacity);
     assert(al->size == default_al_capacity);
 
     array_list_free(al);
@@ -61,12 +61,12 @@ int main(int argc, char **argv)
     assert(al->capacity == default_al_capacity * 2);
 
     for (i = 0; i < default_al_capacity / 2; i++) {
-        array_list_pop(al, &elem);
+        array_list_delete(al, &elem, al->size - 1);
     }
 
     assert(al->capacity == default_al_capacity * 2);
 
-    array_list_pop(al, &elem);
+    array_list_delete(al, &elem, al->size - 1);
 
     assert(al->capacity == default_al_capacity);
 
