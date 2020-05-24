@@ -8,7 +8,7 @@ int main(int argc, char **argv)
     (void)argc;
     (void)argv;
 
-    long default_al_capacity;
+    long default_al_capacity, idx;
     int i, errno, elem;
 
     // Unit tests for mem.c
@@ -100,6 +100,25 @@ int main(int argc, char **argv)
     for (i = 0; i < 10; i++) {
         assert(array_list_get(al, &elem, i) == 0 && elem == i);
     }
+
+    // Testing set
+    assert(array_list_set(al, 0, 999) == 0 && array_list_get(al, &elem, 0) == 0 && elem == 999);
+    assert(array_list_set(al, 9, 999) == 0 && array_list_get(al, &elem, 9) == 0 && elem == 999);
+
+    // Bounds checking
+    assert(array_list_set(al, -1, 999) == -1);
+    assert(array_list_set(al, 10, 999) == -1);
+
+    // Testing linear search
+    assert((idx = array_list_linear_search(al, 999, 0)) == 0);
+    assert(array_list_get(al, &elem, idx) == 0 && elem == 999);
+
+    assert((idx = array_list_linear_search(al, 999, 1)) == 9);
+    assert(array_list_get(al, &elem, idx) == 0 && elem == 999);
+
+    // Bounds checking
+    assert(array_list_linear_search(al, 999, -1) == 0);
+    assert(array_list_linear_search(al, 999, 10) == -1);
 
     array_list_free(al);
 

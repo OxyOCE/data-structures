@@ -64,6 +64,35 @@ int array_list_get(array_list al, int *dest, long idx)
     return 0;
 }
 
+int array_list_linear_search(array_list al, int elem, long start)
+{
+    int i;
+
+    if (start < 0) {
+        i = 0;
+    } else {
+        i = start;
+    }
+
+    for (; i < al->size; i++) {
+        if (al->array[i] == elem) {
+            return i;
+        }
+    }
+
+    return -1;
+}
+
+int array_list_set(array_list al, long idx, int elem)
+{
+    if (idx >= al->size || idx < 0 || al->size <= 0) {
+        return -1;
+    }
+
+    al->array[idx] = elem;
+    return 0;
+}
+
 int array_list_delete(array_list al, int *dest, long idx)
 {
     int i;
