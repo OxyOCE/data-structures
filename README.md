@@ -8,7 +8,7 @@ Master|Develop
 To keep things simple, these data structures currently only support `int` for their data type.
 
 ### Memory Allocation
-`mem.c` provides basic error handling for the `malloc` and `realloc` functions and helps prevents code repetition.
+`mem.c` provides basic error handling for the `malloc` and `realloc` functions and helps prevents code duplication.
 
 ### Array List
 `array-list.c` is a dynamic array that scales its capacity according to demand.
@@ -25,7 +25,7 @@ To keep things simple, these data structures currently only support `int` for th
 
 **Features**
 * **C** - Append, Insert
-* **R** - Get, Binary Search, Linear Search
+* **R** - Get, Linear Search
 * **U** - Set
 * **D** - Delete
 * **Misc** - Automatic downscaling
