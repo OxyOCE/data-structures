@@ -1,7 +1,9 @@
 #include <stdlib.h>
 #include <assert.h>
-#include "include/mem.h"
 #include "include/array-list.h"
+#include "include/defs.h"
+#include "include/mem.h"
+#include "include/sort-and-search.h"
 
 int main(int argc, char **argv)
 {
@@ -109,16 +111,27 @@ int main(int argc, char **argv)
     assert(array_list_set(al, -1, 999) == INDEX_OUT_OF_BOUNDS);
     assert(array_list_set(al, 10, 999) == INDEX_OUT_OF_BOUNDS);
 
+    // Unit tests for sort-and-search.c (temporary)
+    // -------------------------------------------------------------------------
+
     // Testing linear search
-    assert((idx = array_list_linear_search(al, 999, 0)) == 0);
+    assert((idx = linear_search(al->array, al->size, 999, 0)) == 0);
     assert(array_list_get(al, &elem, idx) == SUCCESS && elem == 999);
 
-    assert((idx = array_list_linear_search(al, 999, 1)) == 9);
+    assert((idx = linear_search(al->array, al->size, 999, 1)) == 9);
     assert(array_list_get(al, &elem, idx) == SUCCESS && elem == 999);
 
     // Bounds checking
-    assert(array_list_linear_search(al, 999, -1) == 0);
-    assert(array_list_linear_search(al, 999, 10) == NOT_FOUND);
+    assert(linear_search(al->array, al->size, 999, -1) == 0);
+    assert(linear_search(al->array, al->size, 999, 10) == NOT_FOUND);
+
+    // Testing binary search
+    assert((idx = binary_search(al->array, al->size, 0, al->size - 1, 999)) != NOT_FOUND);
+    assert(array_list_get(al, &elem, idx) == SUCCESS && elem == 999);
+
+    // Bounds checking
+    assert(binary_search(al->array, al->size, 0, al->size, 999) == INDEX_OUT_OF_BOUNDS);
+    assert(binary_search(al->array, al->size, -1, al->size - 1, 999) == INDEX_OUT_OF_BOUNDS);
 
     array_list_free(al);
 

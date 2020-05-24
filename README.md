@@ -15,7 +15,6 @@ To keep things simple, these data structures currently only support `int` for th
 
 **Pros**
 * _O(1)_ append, get, set and delete from end
-* _O(log n)_ binary search
 * Simple
 * Contiguous memory allocation
 
@@ -25,7 +24,17 @@ To keep things simple, these data structures currently only support `int` for th
 
 **Features**
 * **C** - Append, Insert
-* **R** - Get, Linear Search
+* **R** - Get
 * **U** - Set
 * **D** - Delete
 * **Misc** - Automatic downscaling
+
+### Sorting and Searching
+`sort-and-search.c` contains implementations for various sorting and searching algorithms.
+
+**Sorting**
+* None yet
+
+**Searching**
+* **Linear Search** - _O(n)_ - can operate on unsorted lists
+* **Binary Search** - _O(log n)_ - list must be sorted

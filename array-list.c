@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "include/array-list.h"
+#include "include/defs.h"
 #include "include/mem.h"
 
 static void expand(array_list al) {
@@ -79,25 +80,6 @@ int array_list_get(array_list al, int *dest, long idx)
 
     *dest = al->array[idx];
     return SUCCESS;
-}
-
-int array_list_linear_search(array_list al, int elem, long start)
-{
-    int i;
-
-    if (start < 0) {
-        i = 0;
-    } else {
-        i = start;
-    }
-
-    for (; i < al->size; i++) {
-        if (al->array[i] == elem) {
-            return i;
-        }
-    }
-
-    return NOT_FOUND;
 }
 
 int array_list_set(array_list al, long idx, int elem)
