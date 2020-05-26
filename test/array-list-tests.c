@@ -1,11 +1,12 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <assert.h>
 #include "include/array-list.h"
+#include "include/defs.h"
 
 int main(int argc, char **argv)
 {
     (void)argc;
-    (void)argv;
 
     array_list al;
     long default_al_capacity;
@@ -80,14 +81,9 @@ int main(int argc, char **argv)
     assert(array_list_insert(al, 4, 4) == SUCCESS);
     assert(array_list_insert(al, 0, 0) == SUCCESS);
 
-    // Testing print
-    array_list_print(al);
-
     assert(array_list_delete(al, &elem, 12) == SUCCESS && elem == 9);
     assert(array_list_delete(al, &elem, 5) == SUCCESS && elem == 4);
     assert(array_list_delete(al, &elem, 0) == SUCCESS && elem == 0);
-
-    array_list_print(al);
 
     for (i = 0; i < 10; i++) {
         assert(array_list_get(al, &elem, i) == SUCCESS && elem == i);
@@ -100,6 +96,8 @@ int main(int argc, char **argv)
     // Bounds checking set
     assert(array_list_set(al, -1, 999) == INDEX_OUT_OF_BOUNDS);
     assert(array_list_set(al, 10, 999) == INDEX_OUT_OF_BOUNDS);
+
+    printf("%s passed\n", argv[0]);
 
     return EXIT_SUCCESS;
 }

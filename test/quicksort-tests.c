@@ -1,12 +1,15 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <assert.h>
 #include "include/quicksort.h"
+#include "include/mem.h"
 
 int main(int argc, char **argv)
 {
     (void)argc;
     (void)argv;
 
+    int i;
     int *heap_array;
     int test_array[] = {3, 4, 4, 5, 10, 9, 4, 1, 2, 1, 9, 5, 8, 7, 10, 7};
     int test_array_2[] = {2, 1, 4, 3};
@@ -38,6 +41,8 @@ int main(int argc, char **argv)
     }
 
     free(heap_array);
+
+    printf("%s passed\n", argv[0]);
 
     return EXIT_SUCCESS;
 }

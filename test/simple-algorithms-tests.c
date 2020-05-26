@@ -1,6 +1,8 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <assert.h>
 #include "include/simple-algorithms.h"
+#include "include/defs.h"
 
 
 int main(int argc, char **argv)
@@ -31,7 +33,7 @@ int main(int argc, char **argv)
     assert(binary_search(array, size, 0, size, 999) == INDEX_OUT_OF_BOUNDS);
     assert(binary_search(array, size, -1, size - 1, 999) == INDEX_OUT_OF_BOUNDS);
 
-    array_list_free(al);
+    printf("%s passed\n", argv[0]);
 
     return EXIT_SUCCESS;
 }

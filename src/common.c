@@ -1,6 +1,6 @@
 #include "include/common.h"
 
-void swap(long *l, long *r)
+void swap(int *l, int *r)
 {
     int tmp = *l;
     *l = *r;

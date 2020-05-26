@@ -1,6 +1,6 @@
 #ifndef COMMON_H_
 #define COMMON_H_
 
-extern void swap(long *l, long *r);
+extern void swap(int *l, int *r);
 
 #endif

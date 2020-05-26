@@ -1,11 +1,32 @@
 #!/bin/bash
-TESTS=unit-tests.c
+
+if [ "$1" == "clean" ]
+then
+    rm -rf dist
+    rm -rf src/*.o
+    exit 0
+fi
+
+if [ -n "$1" ]
+then
+    TESTS=($1)
+else
+    TESTS=(array-list-tests misc-tests quicksort-tests simple-algorithms-tests)
+fi
+
 mkdir -p dist
 cd test
-mv $TESTS ../src
+
+for TEST in ${TESTS[@]}; do
+    mv $TEST.c ../src
+done
+
 cd ../src
 
-make -f ../makefile
+for TEST in ${TESTS[@]}; do
+    make TEST=$TEST -f ../makefile
+done
 
-mv $TESTS ../test
-rm -rf *.o
+for TEST in ${TESTS[@]}; do
+    mv $TEST.c ../test
+done

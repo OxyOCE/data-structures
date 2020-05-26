@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <assert.h>
 #include "include/common.h"
 #include "include/mem.h"
 
@@ -21,6 +22,8 @@ int main(int argc, char **argv)
     ptr = emalloc(1);
     ptr = erealloc(ptr, 1);
     free(ptr);
+
+    printf("%s passed\n", argv[0]);
 
     return EXIT_SUCCESS;
 }
