@@ -3,7 +3,8 @@
 #include "include/array-list.h"
 #include "include/defs.h"
 #include "include/mem.h"
-#include "include/sort-and-search.h"
+#include "include/quicksort.h"
+#include "include/simple-algorithms.h"
 
 int main(int argc, char **argv)
 {
