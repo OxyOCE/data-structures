@@ -8,7 +8,6 @@
 int main(int argc, char **argv)
 {
     (void)argc;
-    (void)argv;
 
     int array[] = {999, 1, 2, 3, 4, 5, 6, 7, 8, 999};
     long size = (long)(sizeof(array) / sizeof(array[0]));
