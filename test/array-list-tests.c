@@ -1,39 +1,20 @@
 #include <stdlib.h>
-#include <assert.h>
+#include <stdio.h>
 #include "include/array-list.h"
-#include "include/defs.h"
-#include "include/mem.h"
-#include "include/quicksort.h"
-#include "include/simple-algorithms.h"
 
 int main(int argc, char **argv)
 {
     (void)argc;
     (void)argv;
 
-    long default_al_capacity, idx;
+    array_list al;
+    long default_al_capacity;
     int i, errno, elem;
 
-    int *heap_array;
-    int test_array[] = {3, 4, 4, 5, 10, 9, 4, 1, 2, 1, 9, 5, 8, 7, 10, 7};
-    int test_array_2[] = {2, 1, 4, 3};
-    int test_array_sorted[] = {1, 1, 2, 3, 4, 4, 4, 5, 5, 7, 7, 8, 9, 9, 10, 10};
-    int test_array_2_sorted[] = {1, 2, 3, 4};
-    long test_array_size = (long)(sizeof(test_array) / sizeof(test_array[0]));
-    long test_array_2_size = (long)(sizeof(test_array_2) / sizeof(test_array_2[0]));
-
-    // Unit tests for mem.c
-    // -------------------------------------------------------------------------
-    void *ptr = emalloc(1);
-    ptr = erealloc(ptr, 1);
-    free(ptr);
-
-    // Unit tests for array-list.c
-    // -------------------------------------------------------------------------
-    array_list al = array_list_new();
+    al = array_list_new();
     default_al_capacity = al->capacity;
 
-    // Can't delete from an empty list
+    // You can't delete from an empty list
     assert((errno = array_list_delete(al, &elem, al->size)) == INDEX_OUT_OF_BOUNDS);
 
     // Testing upscaling
@@ -90,7 +71,7 @@ int main(int argc, char **argv)
         array_list_append(al, i);
     }
 
-    // Can't access out of bounds
+    // Bounds checking insert
     assert(array_list_insert(al, -1, -1) == INDEX_OUT_OF_BOUNDS);
     assert(array_list_insert(al, 10, 10) == INDEX_OUT_OF_BOUNDS);
 
@@ -116,58 +97,9 @@ int main(int argc, char **argv)
     assert(array_list_set(al, 0, 999) == SUCCESS && array_list_get(al, &elem, 0) == SUCCESS && elem == 999);
     assert(array_list_set(al, 9, 999) == SUCCESS && array_list_get(al, &elem, 9) == SUCCESS && elem == 999);
 
-    // Bounds checking
+    // Bounds checking set
     assert(array_list_set(al, -1, 999) == INDEX_OUT_OF_BOUNDS);
     assert(array_list_set(al, 10, 999) == INDEX_OUT_OF_BOUNDS);
-
-    // Unit tests for sort-and-search.c (temporary)
-    // -------------------------------------------------------------------------
-
-    // Testing linear search
-    assert((idx = linear_search(al->array, al->size, 999, 0)) == 0);
-    assert(array_list_get(al, &elem, idx) == SUCCESS && elem == 999);
-
-    assert((idx = linear_search(al->array, al->size, 999, 1)) == 9);
-    assert(array_list_get(al, &elem, idx) == SUCCESS && elem == 999);
-
-    // Bounds checking
-    assert(linear_search(al->array, al->size, 999, -1) == 0);
-    assert(linear_search(al->array, al->size, 999, 10) == NOT_FOUND);
-
-    // Testing binary search
-    assert((idx = binary_search(al->array, al->size, 0, al->size - 1, 999)) != NOT_FOUND);
-    assert(array_list_get(al, &elem, idx) == SUCCESS && elem == 999);
-
-    // Bounds checking
-    assert(binary_search(al->array, al->size, 0, al->size, 999) == INDEX_OUT_OF_BOUNDS);
-    assert(binary_search(al->array, al->size, -1, al->size - 1, 999) == INDEX_OUT_OF_BOUNDS);
-
-    array_list_free(al);
-
-    //Testing quicksort
-    heap_array = emalloc(16 * sizeof heap_array[0]);
-
-    for (i = 0; i < test_array_size; i++) {
-        heap_array[i] = test_array[i];
-    }
-
-    quicksort(heap_array, test_array_size, 0, test_array_size - 1);
-
-    for (i = 0; i < test_array_size; i++) {
-        assert(heap_array[i] == test_array_sorted[i]);
-    }
-
-    for (i = 0; i < test_array_2_size; i++) {
-        heap_array[i] = test_array_2[i];
-    }
-
-    quicksort(heap_array, test_array_2_size, 0, test_array_2_size - 1);
-
-    for (i = 0; i < test_array_2_size; i++) {
-        assert(heap_array[i] == test_array_2_sorted[i]);
-    }
-
-    free(heap_array);
 
     return EXIT_SUCCESS;
 }

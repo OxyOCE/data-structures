@@ -7,13 +7,13 @@ static long partition(int *array, int l, int r)
     long i, j, p, m = l + (r - l) / 2;
 
     if (array[m] < array[l]) {
-        swap(array, l, m);
+        swap(array[l], array[m]);
     }
     if (array[r] < array[l]) {
-        swap(array, l, r);
+        swap(array[l], array[r]);
     }
     if (array[m] < array[r]) {
-        swap(array, m, r);
+        swap(array[m], array[r]);
     }
 
     p = array[r];
@@ -30,7 +30,7 @@ static long partition(int *array, int l, int r)
         if (i >= j) {
             return j;
         }
-        swap(array, i, j);
+        swap(&i, &j);
         i++;
         j--;
     }
