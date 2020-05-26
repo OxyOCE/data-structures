@@ -1,9 +1,9 @@
 # Data Structures
 A small collection of basic data structures and sorting algorithms designed for simplicity, learning and reference.
 
-Master|Develop
-------|-------
-[![Build Status](https://travis-ci.org/OxyOCE/data-structures.svg?branch=master)](https://travis-ci.org/OxyOCE/data-structures)|[![Build Status](https://travis-ci.org/OxyOCE/data-structures.svg?branch=develop)](https://travis-ci.org/OxyOCE/data-structures)
+Master | Develop
+------ | -------
+[![Build Status](https://travis-ci.org/OxyOCE/data-structures.svg?branch=master)](https://travis-ci.org/OxyOCE/data-structures) | [![Build Status](https://travis-ci.org/OxyOCE/data-structures.svg?branch=develop)](https://travis-ci.org/OxyOCE/data-structures)
 
 To keep things simple, these data structures currently only support `int` for their data type.
 
@@ -29,21 +29,23 @@ To keep things simple, these data structures currently only support `int` for th
 * **D** - Delete
 * **Misc** - Automatic downscaling
 
-## Sorting and Searching
-`sort-and-search.c` contains implementations for various sorting and searching algorithms.
+## Sorting
+### Quicksort
+`quicksort.c` is one of the fastest comparison sorts for larger data sets, but can degrade to quadratic performance.
 
-### Sorting
-* **Quicksort**
-    * Fast with _O(n log n)_ average case
-    * Decent memory footprint _O(log n)_
-    * Easily parallelisable
-    * Bad _O(n^2)_ worst case
-    * Not a stable sort
+**Pros**
+* Fast with _O(n log n)_ average case
+* Decent memory footprint _O(log n)_
+* Easily parallelisable
 
-### Searching
-* **Linear Search**
-    * _O(n)_
-    * Can operate on unsorted lists
-* **Binary Search**
-    * _O(log n)_
-    * List must be sorted
+**Cons**
+* Bad _O(n^2)_ worst case
+* Not a stable sort
+
+## Searching
+`simple-algorithms.c` implements both linear search and binary search.
+
+Algorithm | Pro | Con
+--------- | --- | ---
+**Linear Search** | Can operate on unsorted lists | _O(n)_
+**Binary Search** | _O(log n)_ | List must be sorted prior
