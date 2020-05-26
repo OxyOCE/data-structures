@@ -4,11 +4,11 @@ jobs:
           compiler: gcc
           os: linux
           script:
-              - make
-              - ./test > /dev/null 2>&1
+              - ./build-tests.sh
+              - ./dist/unit-tests > /dev/null 2>&1
         - language: c
           compiler: gcc
           os: osx
           script:
-              - make
-              - ./test > /dev/null 2>&1
+              - ./build-tests.sh
+              - ./dist/unit-tests > /dev/null 2>&1
