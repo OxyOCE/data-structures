@@ -1,6 +1,7 @@
 #ifndef ARRAY_LIST_H_
 #define ARRAY_LIST_H_
 
+// Typedeffing structs to pointers can make code easier to read and understand
 typedef struct array_list
 {
     long capacity;

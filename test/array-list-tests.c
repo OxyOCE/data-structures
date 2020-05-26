@@ -15,7 +15,7 @@ int main(int argc, char **argv)
     al = array_list_new();
     default_al_capacity = al->capacity;
 
-    // You can't delete from an empty list
+    // Can't delete from an empty list
     assert((errno = array_list_delete(al, &elem, al->size)) == INDEX_OUT_OF_BOUNDS);
 
     // Testing upscaling

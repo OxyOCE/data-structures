@@ -2,6 +2,8 @@
 #include <stdio.h>
 #include "include/mem.h"
 
+// This file performs basic error checking for malloc and realloc
+
 void *emalloc(size_t s)
 {
     void *ret = malloc(s);

@@ -19,6 +19,7 @@ int main(int argc, char **argv)
 
     heap_array = emalloc(16 * sizeof heap_array[0]);
 
+    // Testing array 1
     for (i = 0; i < test_array_size; i++) {
         heap_array[i] = test_array[i];
     }
@@ -29,6 +30,7 @@ int main(int argc, char **argv)
         assert(heap_array[i] == test_array_sorted[i]);
     }
 
+    // Testing array 2
     for (i = 0; i < test_array_2_size; i++) {
         heap_array[i] = test_array_2[i];
     }
