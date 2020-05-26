@@ -5,10 +5,10 @@ jobs:
           os: linux
           script:
               - ./build-tests.sh
-              - ./dist/unit-tests > /dev/null 2>&1
+              - ./run-tests.sh
         - language: c
           compiler: gcc
           os: osx
           script:
               - ./build-tests.sh
-              - ./dist/unit-tests > /dev/null 2>&1
+              - ./run-tests.sh
