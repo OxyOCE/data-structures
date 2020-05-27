@@ -99,5 +99,7 @@ int main(int argc, char **argv)
 
     printf("%s passed\n", argv[0]);
 
+    array_list_free(al);
+
     return EXIT_SUCCESS;
 }
