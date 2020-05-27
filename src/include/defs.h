@@ -6,5 +6,6 @@
 #define SUCCESS 0
 #define DEFAULT 1
 #define INSERT 2
+#define BINARY_SEARCH 3
 
 #endif

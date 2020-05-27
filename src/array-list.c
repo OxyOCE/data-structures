@@ -1,8 +1,11 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "include/array-list.h"
+#include "include/common.h"
 #include "include/defs.h"
 #include "include/mem.h"
+#include "include/quicksort.h"
+#include "include/simple-algorithms.h"
 
 /*
 Note that array_list_get and array_list_delete return a status code.
@@ -97,6 +100,16 @@ int array_list_get(array_list al, int *dest, long idx)
     return SUCCESS;
 }
 
+// Search an array list for an element and return its index
+int array_list_find(array_list al, int elem, long start, int mode)
+{
+    if (mode == BINARY_SEARCH) {
+        return binary_search(al->array, al->size, 0, al->size - 1, elem);
+    } else {
+        return linear_search(al->array, al->size, elem, start);
+    }
+}
+
 // Set an index in an array_list to the value of elem
 int array_list_set(array_list al, long idx, int elem)
 {
@@ -106,6 +119,22 @@ int array_list_set(array_list al, long idx, int elem)
 
     al->array[idx] = elem;
     return SUCCESS;
+}
+
+int array_list_sort(array_list al)
+{
+    return quicksort(al->array, al->size, 0, al->size - 1);
+}
+
+void array_list_reverse(array_list al)
+{
+    long i, j;
+    i = 0;
+    j = al->size - 1;
+
+    while (i < j) {
+        swap(&al->array[i++], &al->array[j++]);
+    }
 }
 
 // Delete an element from an array list

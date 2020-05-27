@@ -4,44 +4,76 @@
 #include "include/quicksort.h"
 #include "include/mem.h"
 
+// Reference: https://reprog.wordpress.com/2010/05/20/what-does-it-take-to-test-a-sorting-routine/
+static int *suite_1[] = {
+    (int []) {0},
+    (int []) {0, 0},
+    (int []) {0, 0, 0},
+    (int []) {0, 1},
+    (int []) {1, 0},
+    (int []) {0, 1, 2},
+    (int []) {0, 2, 1},
+    (int []) {1, 0, 2},
+    (int []) {1, 2, 0},
+    (int []) {2, 0, 1},
+    (int []) {2, 1, 0},
+    (int []) {0, 1, 1},
+    (int []) {1, 0, 1},
+    (int []) {1, 1, 0}
+};
+
+static int *suite_2[] = {
+    (int []) {1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
+    (int []) {10, 9, 8, 7, 6, 5, 4, 3, 2, 1},
+    (int []) {42, 9, 17, 54, 602, -3, 54, 999, -11},
+    (int []) {-11, -3, 9, 17, 42, 54, 54, 602, 999}
+};
+
+static int suite_1_size = 15;
+static int suite_2_size = 4;
+
+static int suite_1_sizes[] = {1, 2, 3, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3};
+static int suite_2_sizes[] = {10, 10, 9, 9};
+
+static int compare(const void *a, const void *b)
+{
+    return (*(int *)a - *(int *)b);
+}
+
+static void run_suite(int *suite[], int suite_size, int suite_sizes[])
+{
+    int i, j, test_size;
+    int *scratch_array_test, *scratch_array_qsort;
+
+    for (i = 0; i < suite_size; i++) {
+        test_size = suite_sizes[i];
+        scratch_array_test = emalloc(test_size * sizeof scratch_array_test[0]);
+        scratch_array_qsort = emalloc(test_size * sizeof scratch_array_qsort[0]);
+
+        for (j = 0; j < test_size; j++) {
+            scratch_array_test[j] = suite[i][j];
+            scratch_array_qsort[j] = suite[i][j];
+        }
+
+        quicksort(scratch_array_test, test_size, 0, test_size - 1);
+        qsort(scratch_array_qsort, test_size, sizeof scratch_array_qsort[0], compare);
+
+        for (j = 0; j < test_size; j++)
+        {
+            assert(scratch_array_test[j] == scratch_array_qsort[j]);
+        }
+
+        free(scratch_array_test);
+        free(scratch_array_qsort);
+    }
+}
+
 int main(int argc, char **argv)
 {
     (void)argc;
 
-    int i;
-    int *heap_array;
-    int test_array[] = {3, 4, 4, 5, 10, 9, 4, 1, 2, 1, 9, 5, 8, 7, 10, 7};
-    int test_array_2[] = {2, 1, 4, 3};
-    int test_array_sorted[] = {1, 1, 2, 3, 4, 4, 4, 5, 5, 7, 7, 8, 9, 9, 10, 10};
-    int test_array_2_sorted[] = {1, 2, 3, 4};
-    long test_array_size = (long)(sizeof(test_array) / sizeof(test_array[0]));
-    long test_array_2_size = (long)(sizeof(test_array_2) / sizeof(test_array_2[0]));
-
-    heap_array = emalloc(16 * sizeof heap_array[0]);
-
-    // Testing array 1
-    for (i = 0; i < test_array_size; i++) {
-        heap_array[i] = test_array[i];
-    }
-
-    quicksort(heap_array, test_array_size, 0, test_array_size - 1);
-
-    for (i = 0; i < test_array_size; i++) {
-        assert(heap_array[i] == test_array_sorted[i]);
-    }
-
-    // Testing array 2
-    for (i = 0; i < test_array_2_size; i++) {
-        heap_array[i] = test_array_2[i];
-    }
-
-    quicksort(heap_array, test_array_2_size, 0, test_array_2_size - 1);
-
-    for (i = 0; i < test_array_2_size; i++) {
-        assert(heap_array[i] == test_array_2_sorted[i]);
-    }
-
-    free(heap_array);
+    run_suite(suite_1, suite_1_size, suite_1_sizes);
+    run_suite(suite_2, suite_2_size, suite_2_sizes);
 
     printf("%s passed\n", argv[0]);
 
