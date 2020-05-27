@@ -64,7 +64,7 @@ static void run_suite(int *suite[], int suite_size, int suite_sizes[])
         }
 
         quicksort(scratch_array_quicksort, test_size, 0, test_size - 1);
-        mergesort(scratch_array_mergesort, test_size, 0, test_size - 1);
+        msort(scratch_array_mergesort, test_size, 0, test_size - 1);
         qsort(scratch_array_qsort, test_size, sizeof scratch_array_qsort[0], compare);
 
         for (j = 0; j < test_size; j++)
