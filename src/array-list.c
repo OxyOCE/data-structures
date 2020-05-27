@@ -133,7 +133,7 @@ void array_list_reverse(array_list al)
     j = al->size - 1;
 
     while (i < j) {
-        swap(&al->array[i++], &al->array[j++]);
+        swap(&al->array[i++], &al->array[j--]);
     }
 }
 

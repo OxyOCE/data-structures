@@ -10,7 +10,7 @@ int main(int argc, char **argv)
 
     array_list al;
     long default_al_capacity;
-    int i, errno, elem;
+    int i, j, errno, elem;
 
     al = array_list_new();
     default_al_capacity = al->capacity;
@@ -40,6 +40,16 @@ int main(int argc, char **argv)
     // Testing size update
     assert((errno = array_list_delete(al, &elem, al->size - 1)) == SUCCESS && elem == default_al_capacity);
     assert(al->size == default_al_capacity);
+
+    // Testing reverse
+    array_list_reverse(al);
+
+    i = 0;
+    j = default_al_capacity - 1;
+
+    while (i < default_al_capacity) {
+        assert(al->array[i++] == j--);
+    }
 
     array_list_free(al);
 
