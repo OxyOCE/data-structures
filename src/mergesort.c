@@ -14,6 +14,7 @@ static void merge(int *array, long l, long m, long r)
     long l_size = m - l + 1, r_size = r - m;
     int l_array[l_size], r_array[r_size];
 
+    // Copy the defined subarrays into temporary arrays
     for (i = 0; i < l_size; i++) {
         l_array[i] = array[l + i];
     }
@@ -24,6 +25,8 @@ static void merge(int *array, long l, long m, long r)
     i = 0;
     j = 0;
     k = l;
+
+    // Merge the next smallest element in either array
     while (i < l_size && j < r_size) {
         if (l_array[i] <= r_array[j]) {
             array[k++] = l_array[i++];
@@ -32,6 +35,7 @@ static void merge(int *array, long l, long m, long r)
         }
     }
 
+    // Append any remaining elements
     while (i < l_size) {
         array[k++] = l_array[i++];
     }

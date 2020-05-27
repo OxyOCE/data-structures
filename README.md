@@ -39,6 +39,18 @@ To keep things simple, these data structures currently only support `int` for th
 * Bad _O(n^2)_ worst case
 * Not a stable sort
 
+### Mergesort
+`mergesort.c` is a fast, stable sort; but it uses double the memory footprint of the array it is sorting.
+
+**Pros**
+* Fast with _O(n log n)_ average case
+* Stable sort
+* Easily parallelisable
+
+**Cons**
+* Large _O(n)_ memory footprint
+* Generally not as fast as quicksort due to the large memory copying overhead
+
 ## Searching
 `simple-algorithms.c` implements both linear search and binary search.
 
