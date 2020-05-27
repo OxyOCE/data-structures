@@ -10,7 +10,34 @@
 
 static void merge(int *array, long l, long m, long r)
 {
+    long i, j, k;
+    long l_size = m - l + 1, r_size = r - m;
+    int l_array[l_size], r_array[r_size];
 
+    for (i = 0; i < l_size; i++) {
+        l_array[i] = array[l + i];
+    }
+    for (j = 0; j < r_size; j++) {
+        r_array[j] = array[m + 1 + j];
+    }
+
+    i = 0;
+    j = 0;
+    k = l;
+    while (i < l_size && j < r_size) {
+        if (l_array[i] <= r_array[j]) {
+            array[k++] = l_array[i++];
+        } else {
+            array[k++] = r_array[j++];
+        }
+    }
+
+    while (i < l_size) {
+        array[k++] = l_array[i++];
+    }
+    while(j < r_size) {
+        array[k++] = r_array[j++];
+    }
 }
 
 int mergesort(int *array, long size, int l, int r)
