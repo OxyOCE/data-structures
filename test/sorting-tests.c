@@ -4,6 +4,11 @@
 #include "include/quicksort.h"
 #include "include/mem.h"
 
+/*
+These test suites compare the results of the sorting algorithms against c's qsort routine.
+There are 18 different arrays the algorithms are tested across.
+*/
+
 // Reference: https://reprog.wordpress.com/2010/05/20/what-does-it-take-to-test-a-sorting-routine/
 static int *suite_1[] = {
     (int []) {0},
@@ -29,7 +34,7 @@ static int *suite_2[] = {
     (int []) {-11, -3, 9, 17, 42, 54, 54, 602, 999}
 };
 
-static int suite_1_size = 15;
+static int suite_1_size = 14;
 static int suite_2_size = 4;
 
 static int suite_1_sizes[] = {1, 2, 3, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3};
@@ -53,7 +58,9 @@ static void run_suite(int *suite[], int suite_size, int suite_sizes[])
         for (j = 0; j < test_size; j++) {
             scratch_array_test[j] = suite[i][j];
             scratch_array_qsort[j] = suite[i][j];
+            printf("%d ", suite[i][j]);
         }
+        printf("\n");
 
         quicksort(scratch_array_test, test_size, 0, test_size - 1);
         qsort(scratch_array_qsort, test_size, sizeof scratch_array_qsort[0], compare);

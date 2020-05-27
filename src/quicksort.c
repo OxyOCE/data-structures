@@ -58,7 +58,7 @@ int quicksort(int *array, long size, int l, int r)
         return INDEX_OUT_OF_BOUNDS;
     }
 
-    // Base case (sub array is size 1 so no need to sort)
+    // Base case (sub array is size 2 so no need to divide further)
     if (l < r) {
         // Partition the array (Hoare partition scheme)
         p = partition(array, l, r);
