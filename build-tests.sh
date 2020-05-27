@@ -1,14 +1,12 @@
 #!/bin/bash
 
-if [ "$1" == "clean" ]
-then
+if [ "$1" == "clean" ]; then
     rm -rf dist
     rm -rf src/*.o
     exit 0
 fi
 
-if [ -n "$1" ]
-then
+if [ -n "$1" ]; then
     TESTS=($1)
 else
     TESTS=(array-list-tests misc-tests sorting-tests searching-tests)
