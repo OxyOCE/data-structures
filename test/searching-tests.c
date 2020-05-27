@@ -4,7 +4,6 @@
 #include "include/simple-algorithms.h"
 #include "include/defs.h"
 
-
 int main(int argc, char **argv)
 {
     (void)argc;

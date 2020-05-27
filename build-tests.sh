@@ -11,7 +11,7 @@ if [ -n "$1" ]
 then
     TESTS=($1)
 else
-    TESTS=(array-list-tests misc-tests quicksort-tests simple-algorithms-tests)
+    TESTS=(array-list-tests misc-tests sorting-tests searching-tests)
 fi
 
 mkdir -p dist
