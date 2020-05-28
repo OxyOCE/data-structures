@@ -1,8 +1,16 @@
+#include <stdlib.h>
 #include "include/linked-list.h"
+#include "include/mem.h"
 
 linked_list linked_list_new()
 {
+    linked_list ret = emalloc(sizeof *ret);
 
+    ret->head = NULL;
+    ret->tail = NULL;
+    ret->size = 0;
+
+    return ret;
 }
 
 void linked_list_append(linked_list ll, int elem)
