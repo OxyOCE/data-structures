@@ -19,12 +19,25 @@ To keep things simple, these data structures currently only support `int` for th
 * _O(n)_ insert and delete
 * Uses more memory than is strictly necessary
 
-**Features**
-* **C** - Append, Insert
-* **R** - Get, Find
-* **U** - Set, Sort, Reverse
-* **D** - Delete
+**Operations**
+* **Mutators** - Append, Insert, Set, Delete
+* **Accessors** - Get, Find
+* **Utility** - Sort, Reverse
 * **Misc** - Automatic downscaling
+
+## Stack
+`stack.c` is a last in first out abstract data type based on an array list. It has three main operations: push, pop and peek.
+
+**Pros**
+* All operations are _O(1)_
+* Easily implemented from array list
+
+**Cons**
+* Not many - an array list is one of the best ways to implement a stack
+
+**Operations**
+* **Mutators** - Push
+* **Accessors** - Pop, Peek
 
 ## Sorting
 ### Heapsort
