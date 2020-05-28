@@ -39,6 +39,17 @@ To keep things simple, these data structures currently only support `int` for th
 * Large _O(n)_ memory footprint
 * Generally not as fast as quicksort due to the large memory copying overhead
 
+### Insertion Sort
+`simple-algorithms.c` implements insertion sort. A simple algorithm that works well on small data sets.
+
+**Pros**
+* Performs better than many _O(n log n)_ sorts on small datasets (n < ~20)
+* Stable sort
+* In-place sort (i.e. memory footprint _O(1)_)
+
+**Cons**
+* With _O(n^2)_ time complexity, it quickly becomes terrible for larger datasets
+
 ### Quicksort
 `quicksort.c` is one of the fastest comparison sorts for larger data sets, but can degrade to quadratic performance.
 
