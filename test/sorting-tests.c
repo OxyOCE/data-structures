@@ -3,6 +3,7 @@
 #include <assert.h>
 #include "include/mergesort.h"
 #include "include/quicksort.h"
+#include "include/simple-algorithms.h"
 #include "include/mem.h"
 
 /*
@@ -49,31 +50,36 @@ static int compare(const void *a, const void *b)
 static void run_suite(int *suite[], int suite_size, int suite_sizes[])
 {
     int i, j, test_size;
-    int *scratch_array_mergesort, *scratch_array_quicksort, *scratch_array_qsort;
+    int *scratch_array_mergesort, *scratch_array_insertion_sort, *scratch_array_quicksort, *scratch_array_qsort;
 
     for (i = 0; i < suite_size; i++) {
         test_size = suite_sizes[i];
         scratch_array_mergesort = emalloc(test_size * sizeof scratch_array_mergesort[0]);
+        scratch_array_insertion_sort = emalloc(test_size * sizeof scratch_array_insertion_sort[0]);
         scratch_array_quicksort = emalloc(test_size * sizeof scratch_array_quicksort[0]);
         scratch_array_qsort = emalloc(test_size * sizeof scratch_array_qsort[0]);
 
         for (j = 0; j < test_size; j++) {
             scratch_array_mergesort[j] = suite[i][j];
+            scratch_array_insertion_sort[j] = suite[i][j];
             scratch_array_quicksort[j] = suite[i][j];
             scratch_array_qsort[j] = suite[i][j];
         }
 
-        quicksort(scratch_array_quicksort, test_size, 0, test_size - 1);
         msort(scratch_array_mergesort, test_size, 0, test_size - 1);
+        insertion_sort(scratch_array_insertion_sort, test_size);
+        quicksort(scratch_array_quicksort, test_size, 0, test_size - 1);
         qsort(scratch_array_qsort, test_size, sizeof scratch_array_qsort[0], compare);
 
         for (j = 0; j < test_size; j++)
         {
             assert(scratch_array_mergesort[j] == scratch_array_qsort[j]);
+            assert(scratch_array_insertion_sort[j] == scratch_array_qsort[j]);
             assert(scratch_array_quicksort[j] == scratch_array_qsort[j]);
         }
 
         free(scratch_array_mergesort);
+        free(scratch_array_insertion_sort);
         free(scratch_array_quicksort);
         free(scratch_array_qsort);
     }

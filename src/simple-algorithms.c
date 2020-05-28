@@ -1,5 +1,31 @@
 #include "include/simple-algorithms.h"
+#include "include/common.h"
 #include "include/defs.h"
+
+int insertion_sort(int *array, long size)
+{
+    int i, j;
+
+    // If the array is zero-length or elementary, it is already sorted
+    if (size > 1) {
+
+        // Start at the second element and iterate through the whole array
+        i = 1;
+        while (i < size) {
+            j = i++;
+            /*
+            Decrement j until the preceding element of array[j] is less than array[j].
+            Swap the two indicies. Everything from j leftwards in now in sorted order.
+            */
+            while (j > 0 && array[j - 1] > array[j]) {
+                swap(&array[j], &array[j - 1]);
+                j--;
+            }
+        }
+    }
+
+    return SUCCESS;
+}
 
 int linear_search(int *array, long size, int elem, long start)
 {
