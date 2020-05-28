@@ -16,6 +16,10 @@ STATUS=0
 for TEST in ${TESTS[@]}; do
     if [ -f $TEST ]; then
         ./$TEST
+        if [ $? -ne 0 ]; then
+            echo ./$TEST failed
+            STATUS=1
+        fi
     else
         echo ./$TEST failed
         STATUS=1

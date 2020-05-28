@@ -27,6 +27,17 @@ To keep things simple, these data structures currently only support `int` for th
 * **Misc** - Automatic downscaling
 
 ## Sorting
+### Heapsort
+`heapsort.c` is a fast in-place sort, but it is not suited to a parallel implementation.
+
+**Pros**
+* Fast with _O(n log n)_ average case
+* In-place sort (i.e. memory footprint _O(1)_)
+
+**Cons**
+* Not a stable sort
+* Not suited to a parallel implementation
+
 ### Mergesort
 `mergesort.c` is a fast, stable sort; but it uses double the memory footprint of the array it is sorting.
 

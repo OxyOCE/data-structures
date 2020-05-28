@@ -40,8 +40,13 @@ int heapsort(int *array, long size)
 {
     int end;
 
+    // Transform the array into a heap data structure
     heapify(array, size);
 
+    /*
+    Pop the root (largest) node and move it to the end, rebuild the heap, and
+    repeat until the heap is empty.
+    */
     end = size - 1;
     while (end > 0) {
         swap(&array[end--], &array[0]);
