@@ -100,12 +100,12 @@ int main(int argc, char **argv)
     }
 
     // Testing set
-    assert(array_list_set(al, 0, 999) == SUCCESS && array_list_get(al, &elem, 0) == SUCCESS && elem == 999);
-    assert(array_list_set(al, 9, 999) == SUCCESS && array_list_get(al, &elem, 9) == SUCCESS && elem == 999);
+    assert(array_list_set(al, 999, 0) == SUCCESS && array_list_get(al, &elem, 0) == SUCCESS && elem == 999);
+    assert(array_list_set(al, 999, 9) == SUCCESS && array_list_get(al, &elem, 9) == SUCCESS && elem == 999);
 
     // Bounds checking set
-    assert(array_list_set(al, -1, 999) == INDEX_OUT_OF_BOUNDS);
-    assert(array_list_set(al, 10, 999) == INDEX_OUT_OF_BOUNDS);
+    assert(array_list_set(al, 999, -1) == INDEX_OUT_OF_BOUNDS);
+    assert(array_list_set(al, 999, 10) == INDEX_OUT_OF_BOUNDS);
 
     printf("%s passed\n", argv[0]);
 

@@ -89,27 +89,6 @@ int array_list_insert(array_list al, int elem, long idx)
 
 }
 
-// Get an element from an array_list using an index
-int array_list_get(array_list al, int *dest, long idx)
-{
-    if (check_bounds(al, idx, DEFAULT) == INDEX_OUT_OF_BOUNDS) {
-        return INDEX_OUT_OF_BOUNDS;
-    }
-
-    *dest = al->array[idx];
-    return SUCCESS;
-}
-
-// Search an array list for an element and return its index
-int array_list_find(array_list al, int elem, long start, int mode)
-{
-    if (mode == BINARY_SEARCH) {
-        return binary_search(al->array, al->size, 0, al->size - 1, elem);
-    } else {
-        return linear_search(al->array, al->size, elem, start);
-    }
-}
-
 // Set an index in an array_list to the value of elem
 int array_list_set(array_list al, long idx, int elem)
 {
@@ -119,22 +98,6 @@ int array_list_set(array_list al, long idx, int elem)
 
     al->array[idx] = elem;
     return SUCCESS;
-}
-
-int array_list_sort(array_list al)
-{
-    return quicksort(al->array, al->size, 0, al->size - 1);
-}
-
-void array_list_reverse(array_list al)
-{
-    long i, j;
-    i = 0;
-    j = al->size - 1;
-
-    while (i < j) {
-        swap(&al->array[i++], &al->array[j--]);
-    }
 }
 
 // Delete an element from an array list
@@ -156,6 +119,43 @@ int array_list_delete(array_list al, int *dest, long idx)
     contract(al);
 
     return SUCCESS;
+}
+
+// Get an element from an array_list using an index
+int array_list_get(array_list al, int *dest, long idx)
+{
+    if (check_bounds(al, idx, DEFAULT) == INDEX_OUT_OF_BOUNDS) {
+        return INDEX_OUT_OF_BOUNDS;
+    }
+
+    *dest = al->array[idx];
+    return SUCCESS;
+}
+
+// Search an array list for an element and return its index
+int array_list_find(array_list al, int elem, long start, int mode)
+{
+    if (mode == BINARY_SEARCH) {
+        return binary_search(al->array, al->size, 0, al->size - 1, elem);
+    } else {
+        return linear_search(al->array, al->size, elem, start);
+    }
+}
+
+int array_list_sort(array_list al)
+{
+    return quicksort(al->array, al->size, 0, al->size - 1);
+}
+
+void array_list_reverse(array_list al)
+{
+    long i, j;
+    i = 0;
+    j = al->size - 1;
+
+    while (i < j) {
+        swap(&al->array[i++], &al->array[j--]);
+    }
 }
 
 // Show a visual representation of an array_list
