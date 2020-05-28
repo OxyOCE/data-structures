@@ -1,5 +1,5 @@
 # Data Structures
-A small collection of basic data structures and sorting algorithms designed for simplicity, learning and reference.
+A small collection of simple data structures, sorting algorithms and searching algorithms. Explained and tested for learning and reference.
 
 Master | Develop
 ------ | -------
@@ -21,24 +21,12 @@ To keep things simple, these data structures currently only support `int` for th
 
 **Features**
 * **C** - Append, Insert
-* **R** - Get
-* **U** - Set
+* **R** - Get, Find
+* **U** - Set, Sort, Reverse
 * **D** - Delete
 * **Misc** - Automatic downscaling
 
 ## Sorting
-### Quicksort
-`quicksort.c` is one of the fastest comparison sorts for larger data sets, but can degrade to quadratic performance.
-
-**Pros**
-* Fast with _O(n log n)_ average case
-* Decent memory footprint _O(log n)_
-* Easily parallelisable
-
-**Cons**
-* Bad _O(n^2)_ worst case
-* Not a stable sort
-
 ### Mergesort
 `mergesort.c` is a fast, stable sort; but it uses double the memory footprint of the array it is sorting.
 
@@ -50,6 +38,18 @@ To keep things simple, these data structures currently only support `int` for th
 **Cons**
 * Large _O(n)_ memory footprint
 * Generally not as fast as quicksort due to the large memory copying overhead
+
+### Quicksort
+`quicksort.c` is one of the fastest comparison sorts for larger data sets, but can degrade to quadratic performance.
+
+**Pros**
+* Fast with _O(n log n)_ average case
+* Decent memory footprint _O(log n)_
+* Easily parallelisable
+
+**Cons**
+* Bad _O(n^2)_ worst case
+* Not a stable sort
 
 ## Searching
 `simple-algorithms.c` implements both linear search and binary search.
