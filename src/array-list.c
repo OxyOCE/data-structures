@@ -90,7 +90,7 @@ int array_list_insert(array_list al, int elem, long idx)
 }
 
 // Set an index in an array_list to the value of elem
-int array_list_set(array_list al, long idx, int elem)
+int array_list_set(array_list al, int elem, long idx)
 {
     if (check_bounds(al, idx, DEFAULT) == INDEX_OUT_OF_BOUNDS) {
         return INDEX_OUT_OF_BOUNDS;
