@@ -62,7 +62,7 @@ static void heapify(int *array, long size)
     }
 }
 
-int heapsort(int *array, long size)
+int hsort(int *array, long size)
 {
     int end;
 

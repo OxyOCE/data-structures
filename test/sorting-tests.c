@@ -69,7 +69,7 @@ static void run_suite(int *suite[], int suite_size, int suite_sizes[])
             scratch_array_qsort[j] = suite[i][j];
         }
 
-        heapsort(scratch_array_heapsort, test_size);
+        hsort(scratch_array_heapsort, test_size);
         msort(scratch_array_mergesort, test_size, 0, test_size - 1);
         insertion_sort(scratch_array_insertion_sort, test_size);
         quicksort(scratch_array_quicksort, test_size, 0, test_size - 1);
