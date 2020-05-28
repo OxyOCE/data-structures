@@ -10,13 +10,13 @@ int main(int argc, char **argv)
 
     array_list al;
     long default_al_capacity;
-    int i, j, errno, elem;
+    int i, j, elem;
 
     al = array_list_new();
     default_al_capacity = al->capacity;
 
     // Can't delete from an empty list
-    assert((errno = array_list_delete(al, &elem, al->size)) == INDEX_OUT_OF_BOUNDS);
+    assert(array_list_delete(al, &elem, al->size) == INDEX_OUT_OF_BOUNDS);
 
     // Testing upscaling
     for (i = 0; i < default_al_capacity; i++) {
@@ -32,13 +32,13 @@ int main(int argc, char **argv)
     assert(al->size == default_al_capacity + 1);
 
     // Testing get
-    assert((errno = array_list_get(al, &elem, 0)) == SUCCESS && elem == 0);
-    assert((errno = array_list_get(al, &elem, 1)) == SUCCESS && elem == 1);
-    assert((errno = array_list_get(al, &elem, default_al_capacity - 1)) == SUCCESS && elem == default_al_capacity - 1);
-    assert((errno = array_list_get(al, &elem, default_al_capacity)) == SUCCESS && elem == default_al_capacity);
+    assert(array_list_get(al, &elem, 0) == SUCCESS && elem == 0);
+    assert(array_list_get(al, &elem, 1) == SUCCESS && elem == 1);
+    assert(array_list_get(al, &elem, default_al_capacity - 1) == SUCCESS && elem == default_al_capacity - 1);
+    assert(array_list_get(al, &elem, default_al_capacity) == SUCCESS && elem == default_al_capacity);
 
     // Testing size update
-    assert((errno = array_list_delete(al, &elem, al->size - 1)) == SUCCESS && elem == default_al_capacity);
+    assert(array_list_delete(al, &elem, al->size - 1) == SUCCESS && elem == default_al_capacity);
     assert(al->size == default_al_capacity);
 
     // Testing reverse
