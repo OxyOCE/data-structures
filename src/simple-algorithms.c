@@ -1,3 +1,4 @@
+#include <stddef.h>
 #include "include/simple-algorithms.h"
 #include "include/common.h"
 #include "include/defs.h"
@@ -27,9 +28,9 @@ int insertion_sort(int *array, long size)
     return SUCCESS;
 }
 
-int linear_search(int *array, long size, int elem, long start)
+long linear_search(int *array, long size, int elem, long start)
 {
-    int i;
+    long i;
 
     // Can't have negative indicies so start at 0 minimum
     if (start < 0) {
@@ -52,7 +53,7 @@ int linear_search(int *array, long size, int elem, long start)
     return NOT_FOUND;
 }
 
-int binary_search(int *array, long size, long l, long r, int elem)
+long binary_search(int *array, long size, long l, long r, int elem)
 {
     long m;
 
@@ -81,5 +82,22 @@ int binary_search(int *array, long size, long l, long r, int elem)
     }
 
     // Otherwise the target element is not in the array
+    return NOT_FOUND;
+}
+
+long linear_search_ll(linked_list ll, int elem, long start)
+{
+    linked_list_node curr_node = ll->head;
+    long curr_node_idx = 0;
+
+    while (curr_node != NULL) {
+        if (curr_node->data == elem && curr_node_idx >= start) {
+            return curr_node_idx;
+        }
+
+        curr_node = curr_node->next;
+        curr_node_idx++;
+    }
+
     return NOT_FOUND;
 }

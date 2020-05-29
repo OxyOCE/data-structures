@@ -1,3 +1,4 @@
+#include <stddef.h>
 #include "include/mergesort.h"
 #include "include/defs.h"
 
@@ -65,4 +66,71 @@ int msort(int *array, long size, int l, int r)
     }
 
     return SUCCESS;
+}
+
+static linked_list_node merge_ll(linked_list_node l, linked_list_node r)
+{
+    if (l == NULL) {
+        return r;
+    }
+
+    if (r == NULL) {
+        return l;
+    }
+
+    if (l->data < r->data) {
+        l->next = merge_ll(l->next, r);
+        l->next->prev = l;
+        l->prev = NULL;
+        return l;
+    } else {
+        r->next = merge_ll(l, r->next);
+        r->next->prev = r;
+        r->prev = NULL;
+        return r;
+    }
+}
+
+static linked_list_node bisect(linked_list_node l)
+{
+    linked_list_node temp, s = l, d = l;
+
+    while (d-> next != NULL && d->next->next != NULL) {
+        d = d->next->next;
+        s = s->next;
+    }
+
+    temp = s->next;
+    s->next = NULL;
+    return temp;
+}
+
+static linked_list_node msort_ll_inner(linked_list_node l)
+{
+    linked_list_node r;
+
+    if (l == NULL || l->next == NULL) {
+        return l;
+    }
+
+    r = bisect(l);
+    l = msort_ll_inner(l);
+    r = msort_ll_inner(r);
+
+    return merge_ll(l, r);
+}
+
+// Reference: https://www.geeksforgeeks.org/merge-sort-for-doubly-linked-list/
+void msort_ll(linked_list ll)
+{
+    linked_list_node head, curr_node;
+
+    head = ll->head;
+    ll->head = msort_ll_inner(head);
+
+    curr_node = ll->head;
+    while (curr_node->next != NULL) {
+        curr_node = curr_node->next;
+    }
+    ll->tail = curr_node;
 }

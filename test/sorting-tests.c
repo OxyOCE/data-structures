@@ -1,7 +1,9 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <assert.h>
+#include "include/defs.h"
 #include "include/heapsort.h"
+#include "include/linked-list.h"
 #include "include/mergesort.h"
 #include "include/quicksort.h"
 #include "include/simple-algorithms.h"
@@ -50,13 +52,15 @@ static int compare(const void *a, const void *b)
 
 static void run_suite(int *suite[], int suite_size, int suite_sizes[])
 {
-    int i, j, test_size;
+    int i, j, test_size, elem;
     int *scratch_array_heapsort, *scratch_array_mergesort, *scratch_array_insertion_sort, *scratch_array_quicksort, *scratch_array_qsort;
+    linked_list scratch_ll_mergesort;
 
     for (i = 0; i < suite_size; i++) {
         test_size = suite_sizes[i];
         scratch_array_heapsort = emalloc(test_size * sizeof scratch_array_heapsort[0]);
         scratch_array_mergesort = emalloc(test_size * sizeof scratch_array_mergesort[0]);
+        scratch_ll_mergesort = linked_list_new();
         scratch_array_insertion_sort = emalloc(test_size * sizeof scratch_array_insertion_sort[0]);
         scratch_array_quicksort = emalloc(test_size * sizeof scratch_array_quicksort[0]);
         scratch_array_qsort = emalloc(test_size * sizeof scratch_array_qsort[0]);
@@ -64,6 +68,7 @@ static void run_suite(int *suite[], int suite_size, int suite_sizes[])
         for (j = 0; j < test_size; j++) {
             scratch_array_heapsort[j] = suite[i][j];
             scratch_array_mergesort[j] = suite[i][j];
+            linked_list_append(scratch_ll_mergesort, suite[i][j]);
             scratch_array_insertion_sort[j] = suite[i][j];
             scratch_array_quicksort[j] = suite[i][j];
             scratch_array_qsort[j] = suite[i][j];
@@ -71,6 +76,7 @@ static void run_suite(int *suite[], int suite_size, int suite_sizes[])
 
         hsort(scratch_array_heapsort, test_size);
         msort(scratch_array_mergesort, test_size, 0, test_size - 1);
+        msort_ll(scratch_ll_mergesort);
         insertion_sort(scratch_array_insertion_sort, test_size);
         quicksort(scratch_array_quicksort, test_size, 0, test_size - 1);
         qsort(scratch_array_qsort, test_size, sizeof scratch_array_qsort[0], compare);
@@ -79,12 +85,14 @@ static void run_suite(int *suite[], int suite_size, int suite_sizes[])
         {
             assert(scratch_array_heapsort[j] == scratch_array_qsort[j]);
             assert(scratch_array_mergesort[j] == scratch_array_qsort[j]);
+            assert(linked_list_get(scratch_ll_mergesort, &elem, j) == SUCCESS && elem == scratch_array_qsort[j]);
             assert(scratch_array_insertion_sort[j] == scratch_array_qsort[j]);
             assert(scratch_array_quicksort[j] == scratch_array_qsort[j]);
         }
 
         free(scratch_array_heapsort);
         free(scratch_array_mergesort);
+        linked_list_free(scratch_ll_mergesort);
         free(scratch_array_insertion_sort);
         free(scratch_array_quicksort);
         free(scratch_array_qsort);

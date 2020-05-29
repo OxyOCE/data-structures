@@ -3,6 +3,7 @@
 #include "include/linked-list.h"
 #include "include/defs.h"
 #include "include/mem.h"
+#include "include/mergesort.h"
 
 linked_list linked_list_new()
 {
@@ -80,7 +81,7 @@ int linked_list_insert(linked_list ll, int elem, long idx)
 int linked_list_set(linked_list ll, int elem, long idx)
 {
     linked_list_node curr_node;
-    int curr_node_idx;
+    long curr_node_idx;
 
     if (check_bounds(ll->size, idx, DEFAULT) == INDEX_OUT_OF_BOUNDS) {
         return INDEX_OUT_OF_BOUNDS;
@@ -141,7 +142,7 @@ int linked_list_delete(linked_list ll, int *dest, long idx)
 int linked_list_get(linked_list ll, int *dest, long idx)
 {
     linked_list_node curr_node;
-    int curr_node_idx;
+    long curr_node_idx;
 
     if (check_bounds(ll->size, idx, DEFAULT) == INDEX_OUT_OF_BOUNDS) {
         return INDEX_OUT_OF_BOUNDS;
@@ -167,9 +168,9 @@ int linked_list_find(linked_list ll, int elem, long start, int mode)
 
 }
 
-int linked_list_sort(linked_list ll)
+void linked_list_sort(linked_list ll)
 {
-
+    msort_ll(ll);
 }
 
 void linked_list_reverse(linked_list ll)
