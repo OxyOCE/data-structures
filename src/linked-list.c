@@ -125,11 +125,17 @@ int linked_list_delete(linked_list ll, int *dest, long idx)
 
     if (curr_node->prev == NULL) {
         ll->head = curr_node->next;
-        curr_node->next->prev = NULL;
-    } else if (curr_node->next == NULL) {
+        if (curr_node->next != NULL) {
+            curr_node->next->prev = NULL;
+        }
+    }
+    if (curr_node->next == NULL) {
         ll->tail = curr_node->prev;
-        curr_node->prev->next = NULL;
-    } else {
+        if (curr_node->prev != NULL) {
+            curr_node->prev->next = NULL;
+        }
+    }
+    if (curr_node->next != NULL && curr_node->prev != NULL) {
         curr_node->prev->next = curr_node->next;
         curr_node->next->prev = curr_node->prev;
     }
