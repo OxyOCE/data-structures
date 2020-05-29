@@ -85,7 +85,7 @@ long linear_search(int *array, long size, int elem, long start)
     return NOT_FOUND;
 }
 
-long linear_search_ll(linked_list ll, int elem, long start)
+long search_ll(linked_list ll, int elem, long start)
 {
     linked_list_node curr_node = ll->head;
     long curr_node_idx = 0;

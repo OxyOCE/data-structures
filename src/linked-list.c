@@ -4,6 +4,7 @@
 #include "include/defs.h"
 #include "include/mem.h"
 #include "include/mergesort.h"
+#include "include/simple-algorithms.h"
 
 linked_list linked_list_new()
 {
