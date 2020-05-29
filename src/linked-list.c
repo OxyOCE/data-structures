@@ -163,9 +163,9 @@ int linked_list_get(linked_list ll, int *dest, long idx)
     return SUCCESS;
 }
 
-int linked_list_find(linked_list ll, int elem, long start, int mode)
+int linked_list_find(linked_list ll, int elem, long start)
 {
-
+    return search_ll(ll, elem, start);
 }
 
 void linked_list_sort(linked_list ll)

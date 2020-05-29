@@ -28,31 +28,6 @@ int insertion_sort(int *array, long size)
     return SUCCESS;
 }
 
-long linear_search(int *array, long size, int elem, long start)
-{
-    long i;
-
-    // Can't have negative indicies so start at 0 minimum
-    if (start < 0) {
-        i = 0;
-    } else {
-        i = start;
-    }
-
-    /*
-    Search the whole array for the target element
-
-    i is already initialised above
-    */
-    for (; i < size; i++) {
-        if (array[i] == elem) {
-            return i;
-        }
-    }
-
-    return NOT_FOUND;
-}
-
 long binary_search(int *array, long size, long l, long r, int elem)
 {
     long m;
@@ -82,6 +57,31 @@ long binary_search(int *array, long size, long l, long r, int elem)
     }
 
     // Otherwise the target element is not in the array
+    return NOT_FOUND;
+}
+
+long linear_search(int *array, long size, int elem, long start)
+{
+    long i;
+
+    // Can't have negative indicies so start at 0 minimum
+    if (start < 0) {
+        i = 0;
+    } else {
+        i = start;
+    }
+
+    /*
+    Search the whole array for the target element
+
+    i is already initialised above
+    */
+    for (; i < size; i++) {
+        if (array[i] == elem) {
+            return i;
+        }
+    }
+
     return NOT_FOUND;
 }
 
