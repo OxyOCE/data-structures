@@ -84,7 +84,10 @@ int main(int argc, char **argv)
 
     // Bounds checking insert
     assert(array_list_insert(al, -1, -1) == INDEX_OUT_OF_BOUNDS);
-    assert(array_list_insert(al, 10, 10) == INDEX_OUT_OF_BOUNDS);
+    assert(array_list_insert(al, 11, 11) == INDEX_OUT_OF_BOUNDS);
+    // Can use insert as append
+    assert(array_list_insert(al, 10, 10) == SUCCESS);
+    assert(array_list_delete(al, &elem, 10) == SUCCESS && elem == 10);
 
     // WARNING: the order of the next few operations is important for the unit test
     assert(array_list_insert(al, 9, 9) == SUCCESS);

@@ -28,26 +28,6 @@ static void contract(array_list al) {
     }
 }
 
-// Check that the index is not out of bounds
-static int check_bounds(array_list al, long idx, int mode)
-{
-    // Most applicable operations require the array to be non-empty
-    if (mode == DEFAULT) {
-        if (idx >= al->size || idx < 0 || al->size <= 0) {
-            return INDEX_OUT_OF_BOUNDS;
-        }
-    }
-
-    // Insert can operate on an empty array
-    if (mode == INSERT) {
-        if (idx >= al->size || idx < 0) {
-            return INDEX_OUT_OF_BOUNDS;
-        }
-    }
-
-    return SUCCESS;
-}
-
 // Create a pointer to a new array_list - default capacity is 1024
 array_list array_list_new()
 {
@@ -72,7 +52,7 @@ int array_list_insert(array_list al, int elem, long idx)
 {
     int i;
 
-    if (check_bounds(al, idx, INSERT) == INDEX_OUT_OF_BOUNDS) {
+    if (check_bounds(al->size, idx, INSERT) == INDEX_OUT_OF_BOUNDS) {
         return INDEX_OUT_OF_BOUNDS;
     }
 
@@ -92,7 +72,7 @@ int array_list_insert(array_list al, int elem, long idx)
 // Set an index in an array_list to the value of elem
 int array_list_set(array_list al, int elem, long idx)
 {
-    if (check_bounds(al, idx, DEFAULT) == INDEX_OUT_OF_BOUNDS) {
+    if (check_bounds(al->size, idx, DEFAULT) == INDEX_OUT_OF_BOUNDS) {
         return INDEX_OUT_OF_BOUNDS;
     }
 
@@ -105,7 +85,7 @@ int array_list_delete(array_list al, int *dest, long idx)
 {
     int i;
 
-    if (check_bounds(al, idx, DEFAULT) == INDEX_OUT_OF_BOUNDS) {
+    if (check_bounds(al->size, idx, DEFAULT) == INDEX_OUT_OF_BOUNDS) {
         return INDEX_OUT_OF_BOUNDS;
     }
 
@@ -124,7 +104,7 @@ int array_list_delete(array_list al, int *dest, long idx)
 // Get an element from an array_list using an index
 int array_list_get(array_list al, int *dest, long idx)
 {
-    if (check_bounds(al, idx, DEFAULT) == INDEX_OUT_OF_BOUNDS) {
+    if (check_bounds(al->size, idx, DEFAULT) == INDEX_OUT_OF_BOUNDS) {
         return INDEX_OUT_OF_BOUNDS;
     }
 
