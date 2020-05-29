@@ -2,7 +2,7 @@
 if [ -n "$1" ]; then
     TESTS=($1)
 else
-    TESTS=(array-list-tests misc-tests searching-tests sorting-tests stack-tests)
+    TESTS=(array-list-tests linked-list-tests misc-tests searching-tests sorting-tests stack-tests)
 fi
 
 if [ -d dist ]; then
