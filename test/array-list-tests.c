@@ -4,115 +4,126 @@
 #include "include/array-list.h"
 #include "include/defs.h"
 
+static int magic_elem = 111;
+
 int main(int argc, char **argv)
 {
     (void)argc;
 
     array_list al;
-    long default_al_capacity;
-    int i, j, elem;
+    long expected_capacity, i, j;
+    int elem;
 
+    // Testing append
     al = array_list_new();
-    default_al_capacity = al->capacity;
 
-    // Can't delete from an empty list
-    assert(array_list_delete(al, &elem, al->size) == INDEX_OUT_OF_BOUNDS);
+    array_list_append(al, magic_elem);
+    assert(al->array[0] == magic_elem++ && al->size == 1);
+    array_list_append(al, magic_elem);
+    assert(al->array[1] == magic_elem++ && al->size == 2);
 
-    // Testing upscaling
-    for (i = 0; i < default_al_capacity; i++) {
+    array_list_free(al);
+
+    // Testing insert
+    al = array_list_new();
+
+    assert(array_list_insert(al, magic_elem++, -1) == INDEX_OUT_OF_BOUNDS && al->size == 0);
+    assert(array_list_insert(al, magic_elem++, 1) == INDEX_OUT_OF_BOUNDS && al->size == 0);
+
+    assert(array_list_insert(al, magic_elem, 0) == SUCCESS);
+    assert(al->array[0] == magic_elem++ && al->size == 1);
+    assert(array_list_insert(al, magic_elem, 0) == SUCCESS);
+    assert(al->array[0] == magic_elem++ && al->size == 2);
+    assert(array_list_insert(al, magic_elem, 1) == SUCCESS);
+    assert(al->array[1] == magic_elem++ && al->size == 3);
+    assert(array_list_insert(al, magic_elem, 3) == SUCCESS);
+    assert(al->array[3] == magic_elem++ && al->size == 4);
+
+    array_list_free(al);
+
+    // Testing delete
+    al = array_list_new();
+
+    assert(array_list_delete(al, &elem, -1) == INDEX_OUT_OF_BOUNDS && al->size == 0);
+    assert(array_list_delete(al, &elem, 0) == INDEX_OUT_OF_BOUNDS && al->size == 0);
+    assert(array_list_delete(al, &elem, 1) == INDEX_OUT_OF_BOUNDS && al->size == 0);
+
+    array_list_append(al, magic_elem);
+    assert(array_list_delete(al, &elem, 0) == SUCCESS && elem == magic_elem++ && al->size == 0);
+
+    array_list_append(al, 999);
+    array_list_append(al, 998);
+    array_list_append(al, 997);
+    array_list_append(al, 996);
+
+    assert(array_list_delete(al, &elem, 1) == SUCCESS && elem == 998 && al->size == 3);
+    assert(array_list_delete(al, &elem, 2) == SUCCESS && elem == 996 && al->size == 2);
+    assert(array_list_delete(al, &elem, 0) == SUCCESS && elem == 999 && al->size == 1);
+
+    array_list_free(al);
+
+    // Testing set and get
+    al = array_list_new();
+
+    assert(array_list_set(al, 0, -1) == INDEX_OUT_OF_BOUNDS && al->size == 0);
+    assert(array_list_set(al, 0, 0) == INDEX_OUT_OF_BOUNDS && al->size == 0);
+    assert(array_list_set(al, 0, 1) == INDEX_OUT_OF_BOUNDS && al->size == 0);
+
+    assert(array_list_get(al, &elem, -1) == INDEX_OUT_OF_BOUNDS);
+    assert(array_list_get(al, &elem, 0) == INDEX_OUT_OF_BOUNDS);
+    assert(array_list_get(al, &elem, 1) == INDEX_OUT_OF_BOUNDS);
+
+    array_list_append(al, 0);
+    array_list_append(al, 0);
+    array_list_append(al, 0);
+
+    assert(array_list_set(al, magic_elem, 0) == SUCCESS && al->size == 3);
+    assert(array_list_get(al, &elem, 0) == SUCCESS && elem == magic_elem++);
+    assert(array_list_set(al, magic_elem, 1) == SUCCESS && al->size == 3);
+    assert(array_list_get(al, &elem, 1) == SUCCESS && elem == magic_elem++);
+    assert(array_list_set(al, magic_elem, 2) == SUCCESS && al->size == 3);
+    assert(array_list_get(al, &elem, 2) == SUCCESS && elem == magic_elem++);
+
+    array_list_free(al);
+
+    // Testing reverse
+    al = array_list_new();
+    expected_capacity = al->capacity;
+
+    for (i = 0; i < expected_capacity; i++) {
         array_list_append(al, i);
     }
 
-    assert(al->capacity == default_al_capacity);
-    assert(al->size == default_al_capacity);
-
-    array_list_append(al, default_al_capacity);
-
-    assert(al->capacity == default_al_capacity * 2);
-    assert(al->size == default_al_capacity + 1);
-
-    // Testing get
-    assert(array_list_get(al, &elem, 0) == SUCCESS && elem == 0);
-    assert(array_list_get(al, &elem, 1) == SUCCESS && elem == 1);
-    assert(array_list_get(al, &elem, default_al_capacity - 1) == SUCCESS && elem == default_al_capacity - 1);
-    assert(array_list_get(al, &elem, default_al_capacity) == SUCCESS && elem == default_al_capacity);
-
-    // Testing size update
-    assert(array_list_delete(al, &elem, al->size - 1) == SUCCESS && elem == default_al_capacity);
-    assert(al->size == default_al_capacity);
-
-    // Testing reverse
     array_list_reverse(al);
 
     i = 0;
-    j = default_al_capacity - 1;
+    j = al->size - 1;
 
-    while (i < default_al_capacity) {
+    while (i < al->size) {
         assert(al->array[i++] == j--);
     }
 
     array_list_free(al);
 
-    // Testing downscaling
+    // Testing scaling
     al = array_list_new();
-    default_al_capacity = al->capacity;
 
-    for (i = 0; i <= default_al_capacity; i++) {
+    for (i = 0; i < expected_capacity; i++) {
         array_list_append(al, i);
     }
 
-    assert(al->capacity == default_al_capacity * 2);
+    assert(al->capacity == expected_capacity);
+    array_list_append(al, ++i);
+    assert(al->capacity == expected_capacity * 2);
 
-    for (i = 0; i < default_al_capacity / 2; i++) {
+    for (i = 0; i < expected_capacity / 2 + 1; i++) {
         array_list_delete(al, &elem, al->size - 1);
     }
 
-    assert(al->capacity == default_al_capacity * 2);
-
-    array_list_delete(al, &elem, al->size - 1);
-
-    assert(al->capacity == default_al_capacity);
-
+    assert(al->capacity == expected_capacity);
     array_list_free(al);
-
-    // Testing insert and delete
-    al = array_list_new();
-
-    for (i = 0; i < 10; i++) {
-        array_list_append(al, i);
-    }
-
-    // Bounds checking insert
-    assert(array_list_insert(al, -1, -1) == INDEX_OUT_OF_BOUNDS);
-    assert(array_list_insert(al, 11, 11) == INDEX_OUT_OF_BOUNDS);
-    // Can use insert as append
-    assert(array_list_insert(al, 10, 10) == SUCCESS);
-    assert(array_list_delete(al, &elem, 10) == SUCCESS && elem == 10);
-
-    // WARNING: the order of the next few operations is important for the unit test
-    assert(array_list_insert(al, 9, 9) == SUCCESS);
-    assert(array_list_insert(al, 4, 4) == SUCCESS);
-    assert(array_list_insert(al, 0, 0) == SUCCESS);
-
-    assert(array_list_delete(al, &elem, 12) == SUCCESS && elem == 9);
-    assert(array_list_delete(al, &elem, 5) == SUCCESS && elem == 4);
-    assert(array_list_delete(al, &elem, 0) == SUCCESS && elem == 0);
-
-    for (i = 0; i < 10; i++) {
-        assert(array_list_get(al, &elem, i) == SUCCESS && elem == i);
-    }
-
-    // Testing set
-    assert(array_list_set(al, 999, 0) == SUCCESS && array_list_get(al, &elem, 0) == SUCCESS && elem == 999);
-    assert(array_list_set(al, 999, 9) == SUCCESS && array_list_get(al, &elem, 9) == SUCCESS && elem == 999);
-
-    // Bounds checking set
-    assert(array_list_set(al, 999, -1) == INDEX_OUT_OF_BOUNDS);
-    assert(array_list_set(al, 999, 10) == INDEX_OUT_OF_BOUNDS);
 
     printf("%s passed\n", argv[0]);
-
-    array_list_free(al);
 
     return EXIT_SUCCESS;
 }

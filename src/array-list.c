@@ -66,7 +66,6 @@ int array_list_insert(array_list al, int elem, long idx)
     al->array[idx] = elem;
 
     return SUCCESS;
-
 }
 
 // Set an index in an array_list to the value of elem
