@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "include/linked-list.h"
+#include "include/common.h"
 #include "include/defs.h"
 #include "include/mem.h"
 #include "include/mergesort.h"
@@ -105,7 +106,7 @@ int linked_list_set(linked_list ll, int elem, long idx)
 
 int linked_list_delete(linked_list ll, int *dest, long idx)
 {
-    linked_list_node curr_node, new_node;
+    linked_list_node curr_node;
     long curr_node_idx;
 
     if (check_bounds(ll->size, idx, DEFAULT) == INDEX_OUT_OF_BOUNDS || ll->head == NULL) {
