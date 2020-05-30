@@ -79,7 +79,7 @@ int array_list_set(array_list al, int elem, long idx)
     return SUCCESS;
 }
 
-// Delete an element from an array list
+// Delete an element from an array_list
 int array_list_delete(array_list al, int *dest, long idx)
 {
     int i;
@@ -111,7 +111,7 @@ int array_list_get(array_list al, int *dest, long idx)
     return SUCCESS;
 }
 
-// Search an array list for an element and return its index
+// Search an array_list for an element and return its index
 int array_list_find(array_list al, int elem, long start, int mode)
 {
     if (mode == BINARY_SEARCH) {
@@ -121,11 +121,13 @@ int array_list_find(array_list al, int elem, long start, int mode)
     }
 }
 
+// Sort an array_list using quicksort
 int array_list_sort(array_list al)
 {
     return quicksort(al->array, al->size, 0, al->size - 1);
 }
 
+// Reverse an array_list
 void array_list_reverse(array_list al)
 {
     long i, j;
