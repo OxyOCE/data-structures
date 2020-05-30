@@ -83,8 +83,8 @@ static linked_list_node merge_ll(linked_list_node l, linked_list_node r)
     }
 
     /*
-    If the left head is less than the right head, merge the left head and
-    recursively finish merging the right list and the remainder of the left list.
+    If the left head is less than the right head, merge the left head and recursively
+    finish merging the remainder of the left list and the right list.
     */
     if (l->data < r->data) {
         l->next = merge_ll(l->next, r);
