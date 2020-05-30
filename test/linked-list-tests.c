@@ -59,6 +59,7 @@ int main(int argc, char **argv)
     assert(linked_list_delete(ll, &elem, 1) == SUCCESS && elem == 998 && ll->size == 3);
     assert(linked_list_delete(ll, &elem, 2) == SUCCESS && elem == 996 && ll->size == 2);
     assert(linked_list_delete(ll, &elem, 0) == SUCCESS && elem == 999 && ll->size == 1);
+    assert(linked_list_delete(ll, &elem, 0) == SUCCESS && elem == 997 && ll->size == 0 && ll->head == NULL && ll->tail == NULL);
 
     linked_list_free(ll);
 
