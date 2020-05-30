@@ -90,7 +90,9 @@ long search_ll(linked_list ll, int elem, long start)
     linked_list_node curr_node = ll->head;
     long curr_node_idx = 0;
 
+    // Iterate through the list until elem is found
     while (curr_node != NULL) {
+        // If we are past the start index, return the index; otherwise continue
         if (curr_node->data == elem && curr_node_idx >= start) {
             return curr_node_idx;
         }
