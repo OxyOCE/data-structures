@@ -25,19 +25,19 @@ void linked_list_append(linked_list ll, int elem)
     linked_list_node new_node = emalloc(sizeof *new_node);
     new_node->data = elem;
 
-    // If the list is empty, prev is null and update the head
+    // If the list is empty, new_node is new head and new_node prev is null
     if (ll->tail == NULL) {
         new_node->prev = NULL;
         ll->head = new_node;
-    } else { // Else prev is the old tail and old tail next is new_node
+    } else { // Else new_node prev is the old tail and old tail next is new_node
         new_node->prev = ll->tail;
         ll->tail->next = new_node;
     }
 
-    // New tail next is null
-    new_node->next = NULL;
     // New node is new tail
     ll->tail = new_node;
+    // New tail's next is null
+    new_node->next = NULL;
     ll->size++;
 }
 
@@ -51,7 +51,7 @@ int linked_list_insert(linked_list ll, int elem, long idx)
         return INDEX_OUT_OF_BOUNDS;
     }
 
-    // If empty list, append
+    // If list is empty, append
     if (ll->tail == NULL) {
         linked_list_append(ll, elem);
         return SUCCESS;
@@ -65,7 +65,7 @@ int linked_list_insert(linked_list ll, int elem, long idx)
         curr_node_idx++;
     }
 
-    // If index is past the end (by 1 only), append
+    // If index is past the end (by 1 max), append
     if (curr_node->next == NULL && curr_node_idx < idx) {
         linked_list_append(ll, elem);
         return SUCCESS;
