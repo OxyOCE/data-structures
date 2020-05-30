@@ -54,8 +54,21 @@ To keep things simple, these data structures currently only support `int` for th
 * Not many - an array list is one of the best ways to implement a stack
 
 **Operations**
-* **Mutators** - Push
-* **Accessors** - Pop, Peek
+* **Mutators** - Push, Pop
+* **Accessors** - Peek
+
+## Queue
+`queue.c` is a first in first out abstract data type based on a linked list. It has two main operations: enqueue and dequeue.
+
+**Pros**
+* All operations are _O(1)_
+* Easily implemented from a singly or doubly linked list
+
+**Cons**
+* Somewhat large memory overhead
+
+**Operations**
+* **Mutators** - Enqueue, Dequeue
 
 ## Sorting
 ### Heapsort
