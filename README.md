@@ -11,12 +11,13 @@ To keep things simple, these data structures currently only support `int` for th
 `array-list.c` is a dynamic array that scales its capacity according to demand.
 
 **Pros**
-* _O(1)_ append, get, set and delete from end
+* _O(1)_ append and delete from end, get and set from anywhere
+* Can use binary search
 * Simple
 * Contiguous memory allocation
 
 **Cons**
-* _O(n)_ insert and delete
+* _O(n)_ insert and delete from start and within
 * Uses more memory than is strictly necessary
 
 **Operations**
@@ -24,6 +25,23 @@ To keep things simple, these data structures currently only support `int` for th
 * **Accessors** - Get, Find
 * **Utility** - Sort, Reverse
 * **Misc** - Automatic downscaling
+
+## Linked List
+`linked-list.c` implements a doubly linked list. A good choice if you need to insert at both the start and the end of a list.
+
+**Pros**
+* All mutators are _O(1)_ on the start or the end of a list
+* Can be merge sorted in _O(1)_ space
+
+**Cons**
+* All mutators are _O(n)_ within a list
+* All accessors are _O(n)_
+* Somewhat complex implementation
+
+**Operations**
+* **Mutators** - Append, Insert, Set, Delete
+* **Accessors** - Get, Find
+* **Utility** - Sort, Reverse
 
 ## Stack
 `stack.c` is a last in first out abstract data type based on an array list. It has three main operations: push, pop and peek.
