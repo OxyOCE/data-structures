@@ -70,6 +70,10 @@ int msort(int *array, long size, int l, int r)
 
 static linked_list_node merge_ll(linked_list_node l, linked_list_node r)
 {
+    /*
+    If either list head doesn't exist, merge the one with a head
+    (This covers odd sized lists)
+    */
     if (l == NULL) {
         return r;
     }
@@ -78,12 +82,16 @@ static linked_list_node merge_ll(linked_list_node l, linked_list_node r)
         return l;
     }
 
+    /*
+    If the left head is less than the right head, merge the left head and
+    recursively finish merging the right list and the remainder of the left list.
+    */
     if (l->data < r->data) {
         l->next = merge_ll(l->next, r);
         l->next->prev = l;
         l->prev = NULL;
         return l;
-    } else {
+    } else { // Opposite
         r->next = merge_ll(l, r->next);
         r->next->prev = r;
         r->prev = NULL;
@@ -95,6 +103,11 @@ static linked_list_node bisect(linked_list_node l)
 {
     linked_list_node temp, s = l, d = l;
 
+    /*
+    A clever way to find the halfway point in a linked list:
+    Iterate a normal pointer and a skip-one pointer until the skip-one pointer
+    is at the end of the list. The normal pointer will now be pointing at the halfway point.
+    */
     while (d-> next != NULL && d->next->next != NULL) {
         d = d->next->next;
         s = s->next;
@@ -109,14 +122,17 @@ static linked_list_node msort_ll_inner(linked_list_node l)
 {
     linked_list_node r;
 
+    // If list is empty or size 1, it is already sorted
     if (l == NULL || l->next == NULL) {
         return l;
     }
 
+    // Recursively split list into two equal parts
     r = bisect(l);
     l = msort_ll_inner(l);
     r = msort_ll_inner(r);
 
+    // Merge lists back together
     return merge_ll(l, r);
 }
 
@@ -126,8 +142,10 @@ void msort_ll(linked_list ll)
     linked_list_node head, curr_node;
 
     head = ll->head;
+    // Update new head after sort
     ll->head = msort_ll_inner(head);
 
+    // Update new tail after sort
     curr_node = ll->head;
     while (curr_node->next != NULL) {
         curr_node = curr_node->next;
